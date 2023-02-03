@@ -1,22 +1,54 @@
-import { Wallet, WalletInfo } from "@tonconnect/sdk";
-import { useContext, useEffect, useState } from "react";
+import {
+  isWalletInfoInjected,
+  Wallet,
+  WalletInfo,
+  WalletInfoInjected,
+  WalletInfoRemote,
+} from "@tonconnect/sdk";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { TonConnectContext } from "../components/tonconnectprovider";
 
 export function useTonConnect() {
   const connector = useContext(TonConnectContext);
-  const [wallets, setWallets] = useState<WalletInfo[]>([]);
+  const [wallets, setWallets] = useState<WalletInfoRemote[]>([]);
+  const [walletsEmbedded, setWalletsEmbedded] =
+    useState<WalletInfoInjected | null>(null);
 
   //   console.log(connector);
 
   useEffect(() => {
-    (async () => setWallets((await connector?.getWallets()) ?? []))();
+    (async () => {
+      const list = await connector!.getWallets();
+      setWallets(
+        (list as WalletInfoRemote[]).filter((wallet) => wallet.universalLink)
+      );
+      setWalletsEmbedded(
+        list.filter(isWalletInfoInjected).find((wallet) => wallet.embedded) ??
+          null
+      );
+    })();
   }, []);
 
-  function connect(info: WalletInfo) {
-    console.log(connector?.connect(info));
+  const callbackConnect = useCallback(
+    function connect(info: WalletInfoRemote) {
+      if (walletsEmbedded) {
+        const a = connector?.connect({
+          jsBridgeKey: walletsEmbedded.jsBridgeKey,
+        });
+        console.log(a);
 
-    return connector?.connect(info);
-  }
+        return;
+      }
+      const link = connector?.connect({
+        universalLink: info.universalLink,
+        bridgeUrl: info.bridgeUrl,
+      });
 
-  return { connect, wallets };
+      window.open(link);
+      // return connector?.connect(info);
+    },
+    [wallets, connector]
+  );
+
+  return { connect: callbackConnect, wallets, walletsEmbedded };
 }

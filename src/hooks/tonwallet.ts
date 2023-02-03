@@ -8,13 +8,7 @@ export function useTonWallet() {
     connector?.wallet ?? null
   );
 
-  useEffect(() => {
-    connector?.onStatusChange((value) => {
-      console.log("change status");
-
-      setWallet(value);
-    });
-  }, [connector]);
+  useEffect(() => connector?.onStatusChange(setWallet), []);
 
   return wallet;
 }

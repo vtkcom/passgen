@@ -3,9 +3,9 @@ import { useTonWallet } from "../hooks/tonwallet";
 
 const Component: React.FC = () => {
   const wallet = useTonWallet();
-  const { connect, wallets } = useTonConnect();
+  const { connect, wallets, walletsEmbedded } = useTonConnect();
 
-  console.log(wallets);
+  console.log(wallets, walletsEmbedded);
 
   //   con.connectWallet();
 

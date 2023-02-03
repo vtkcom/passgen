@@ -1,5 +1,5 @@
 import { TonConnect } from "@tonconnect/sdk";
-import { createContext, memo, useMemo } from "react";
+import { createContext, memo, useEffect, useMemo } from "react";
 
 interface TonConnectContext {
   connector: TonConnect;
@@ -20,6 +20,10 @@ const Component: React.FC<Props> = ({ children, manifestUrl }) => {
       }),
     [manifestUrl]
   );
+
+  useEffect(() => {
+    connector.restoreConnection();
+  }, []);
 
   return (
     <TonConnectContext.Provider value={connector}>
