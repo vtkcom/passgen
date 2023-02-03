@@ -42,7 +42,7 @@ const Component: React.FC = () => {
   return (
     <>
       <header className={style.header}>
-        <Button>Connect wallet</Button>
+        <Button isToncoin>Connect wallet</Button>
       </header>
 
       <main className={style.main}>

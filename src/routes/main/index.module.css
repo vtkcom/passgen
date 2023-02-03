@@ -1,5 +1,5 @@
 .header {
-  padding: 1.5rem 2rem;
+  padding: 0 2rem;
 }
 .main {
   display: grid;
@@ -13,7 +13,7 @@
   grid-auto-columns: auto;
   /* grid-auto-columns: max-content; */
   color: var(--tg-theme-hint-color);
-  padding: 0.3rem 2rem;
+  padding: 0 2rem;
 }
 .footer span:last-child {
   overflow: hidden;

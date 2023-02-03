@@ -5,7 +5,6 @@ const Component: React.FC = () => {
   return (
     <Wrap>
       <b>Home</b>
-      <br />
       <Link to="/about">About</Link>
     </Wrap>
   );

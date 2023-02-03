@@ -40,6 +40,8 @@ app {
 }
 app {
   grid-template-rows: max-content auto max-content;
+  padding: 1rem 0;
+  gap: 1rem;
 }
 a {
   color: var(--tg-theme-link-color);
