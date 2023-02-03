@@ -9,7 +9,7 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <TonConnectUIProvider manifestUrl="https://vtkcom.github.io/pass-app/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl="https://vtkcom.github.io/passgen/tonconnect-manifest.json">
       <Wrap>
         <div>
           <a href="https://vitejs.dev" target="_blank">
