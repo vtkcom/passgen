@@ -6,8 +6,8 @@
 }
 .main {
   display: grid;
-  align-items: start;
-  grid-auto-rows: max-content;
+  /* align-items: start; */
+  /* grid-auto-rows: max-content; */
 }
 .footer {
   display: grid;

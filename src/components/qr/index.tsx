@@ -2,7 +2,6 @@ import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef } from "react";
 import WebApp from "@twa-dev/sdk";
 import style from "./index.module.css";
-import tonkeeperLogo from "../../assets/tonkeeper.svg";
 
 const qrCode = new QRCodeStyling({
   width: 250,
@@ -15,7 +14,6 @@ const qrCode = new QRCodeStyling({
   backgroundOptions: {
     color: "transparent",
   },
-  image: "/passgen/tonkeeper.svg",
   imageOptions: {
     margin: 3,
     hideBackgroundDots: true,
