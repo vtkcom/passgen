@@ -9,15 +9,17 @@ import {
 } from "react-router-dom";
 import TonConnectProvider from "./components/tonconnectprovider";
 import "./index.css";
-import Main from "./routes/main";
+import Layout from "./routes/layout";
 import Home from "./routes/home";
 import About from "./routes/about";
+import Connect from "./routes/connect";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Main />}>
+    <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="connect" element={<Connect />} />
     </Route>
   ),
   {

@@ -1,6 +1,6 @@
 import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import Button from "../../components/button";
 import { useDetect } from "../../hooks/detect";
 import style from "./index.module.css";
@@ -42,7 +42,11 @@ const Component: React.FC = () => {
   return (
     <>
       <header className={style.header}>
-        <Button isToncoin>Connect wallet</Button>
+        {location.pathname !== "/connect" && (
+          <Link to="/connect">
+            <Button isToncoin>Connect wallet</Button>
+          </Link>
+        )}
       </header>
 
       <main className={style.main}>

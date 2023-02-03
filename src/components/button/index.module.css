@@ -8,6 +8,7 @@
   font-size: 1rem;
   display: grid;
   place-items: center;
+  text-decoration: none;
 }
 .toncoin {
   background-image: url(/toncoin-bg.svg);
