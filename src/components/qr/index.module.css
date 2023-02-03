@@ -1,6 +1,6 @@
 .qr {
   border-radius: 1.5rem;
-  background-color: #fff;
+  /* background-color: #fff; */
   display: grid;
   width: fit-content;
 }
