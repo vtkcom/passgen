@@ -7,7 +7,7 @@ import style from "./index.module.css";
 
 const Component: React.FC = () => {
   const location = useLocation();
-  const { twa, platform, appCodeName, agent } = useDetect();
+  const { twa, platform, agent } = useDetect();
 
   useEffect(init, []);
   useEffect(toggleBackButton, [location]);
@@ -50,9 +50,7 @@ const Component: React.FC = () => {
       </main>
 
       <footer className={style.footer}>
-        {twa && <span>{twa}</span>}
         <span>{platform}</span>
-        <span>{appCodeName}</span>
         <span>{agent}</span>
       </footer>
     </>
