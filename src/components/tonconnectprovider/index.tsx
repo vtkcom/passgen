@@ -22,7 +22,7 @@ const Component: React.FC<Props> = ({ children, manifestUrl }) => {
   );
 
   useEffect(() => {
-    connector.restoreConnection();
+    (async () => await connector.restoreConnection())();
   }, []);
 
   return (
