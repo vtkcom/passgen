@@ -22,11 +22,12 @@ const Component: React.FC = () => {
 
   function toggleBackButton() {
     const openEndpoint = localStorage.getItem("openendpoint");
+    console.log(openEndpoint);
+    console.log(location.pathname);
 
     if (openEndpoint === location.pathname) {
       WebApp.BackButton.hide();
-    }
-    {
+    } else {
       WebApp.BackButton.show();
     }
   }
