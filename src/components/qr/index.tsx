@@ -22,14 +22,14 @@ const qrCode = new QRCodeStyling({
   dotsOptions: {
     type: "extra-rounded",
     color: WebApp.themeParams.button_color,
-    gradient: {
-      type: "linear",
-      rotation: 45,
-      colorStops: [
-        { offset: 0, color: WebApp.themeParams.button_color },
-        { offset: 1, color: "#666" },
-      ],
-    },
+    // gradient: {
+    //   type: "linear",
+    //   rotation: 45,
+    //   colorStops: [
+    //     { offset: 0, color: WebApp.themeParams.button_color },
+    //     { offset: 1, color: "#666" },
+    //   ],
+    // },
   },
   cornersSquareOptions: {
     type: "extra-rounded",
