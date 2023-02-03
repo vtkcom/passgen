@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Button from "./components/button";
-import Wrap from "./components/wrap";
-import Routes from "./routes";
-import reactLogo from "./assets/react.svg";
+import Button from "../components/button";
+import Wrap from "../components/wrap";
+import Routes from "../routes";
+import reactLogo from "../assets/react.svg";
 
 function App() {
   const [count, setCount] = useState(0);

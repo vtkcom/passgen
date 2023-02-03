@@ -1,6 +1,7 @@
+import "@twa-dev/sdk";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./app";
 import TonConnectProvider from "./components/tonconnectprovider";
 import "./index.css";
 

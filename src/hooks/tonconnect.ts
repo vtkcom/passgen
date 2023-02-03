@@ -5,6 +5,7 @@ import {
   WalletInfoInjected,
   WalletInfoRemote,
 } from "@tonconnect/sdk";
+import WebApp from "@twa-dev/sdk";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { TonConnectContext } from "../components/tonconnectprovider";
 
@@ -44,7 +45,9 @@ export function useTonConnect() {
         bridgeUrl: info.bridgeUrl,
       });
 
-      window.open(link);
+      if (link) WebApp.openLink(link);
+
+      //   window.open(link, "_self", "noreferrer noopener");
       // return connector?.connect(info);
     },
     [wallets, connector]

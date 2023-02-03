@@ -1,3 +1,4 @@
+import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import { useTonConnect } from "../hooks/tonconnect";
 import { useTonWallet } from "../hooks/tonwallet";
 
@@ -5,7 +6,7 @@ const Component: React.FC = () => {
   const wallet = useTonWallet();
   const { connect, wallets, walletsEmbedded } = useTonConnect();
 
-  console.log(wallets, walletsEmbedded);
+  console.log(wallet, walletsEmbedded);
 
   //   con.connectWallet();
 
@@ -20,7 +21,8 @@ const Component: React.FC = () => {
           />
         );
       })}
-      address: <b>{wallet?.account.address}</b>
+      address:{" "}
+      {wallet && <b>{toUserFriendlyAddress(wallet?.account.address)}</b>}
     </>
   );
 };
