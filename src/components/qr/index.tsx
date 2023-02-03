@@ -15,7 +15,7 @@ const qrCode = new QRCodeStyling({
   backgroundOptions: {
     color: "transparent",
   },
-  image: tonkeeperLogo,
+  image: "/public/tonkeeper.svg",
   imageOptions: {
     margin: 3,
     hideBackgroundDots: true,
