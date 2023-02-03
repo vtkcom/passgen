@@ -4,6 +4,7 @@ interface Data {
   twa: typeof WebApp["platform"] | false;
   platform: string;
   appCodeName: string;
+  agent: string;
 }
 
 export function useDetect(): Data {
@@ -11,5 +12,6 @@ export function useDetect(): Data {
     twa: WebApp.platform === "unknown" ? false : WebApp.platform,
     platform: navigator.platform,
     appCodeName: navigator.appCodeName,
+    agent: navigator.userAgent,
   };
 }

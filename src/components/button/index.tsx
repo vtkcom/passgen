@@ -1,7 +1,7 @@
 import style from "./index.module.css";
 
 interface Props {
-  children?: React.ReactNode[];
+  children?: React.ReactNode | React.ReactNode[];
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 

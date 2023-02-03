@@ -33,22 +33,17 @@ export function useTonConnect() {
   const callbackConnect = useCallback(
     function connect(info: WalletInfoRemote) {
       if (walletsEmbedded) {
-        const a = connector?.connect({
+        connector?.connect({
           jsBridgeKey: walletsEmbedded.jsBridgeKey,
         });
-        console.log(a);
-
         return;
       }
-      const link = connector?.connect({
+      const link = connector!.connect({
         universalLink: info.universalLink,
         bridgeUrl: info.bridgeUrl,
       });
 
-      if (link) WebApp.openLink(link);
-
-      //   window.open(link, "_self", "noreferrer noopener");
-      // return connector?.connect(info);
+      return link;
     },
     [wallets, connector]
   );

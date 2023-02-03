@@ -1,6 +1,7 @@
 :root {
   --font-size: 16px;
-  --font-family-main: Roboto, Tahoma, Verdana, Arial, sans-serif /*, 'Open Sans Condensed'*/;
+  --font-family-main: Roboto, Tahoma, Verdana, Arial,
+    sans-serif /*, 'Open Sans Condensed'*/;
   --tg-theme-button-color: #247066;
   --tg-theme-button-text-color: #ffffff;
   --tg-theme-bg-color: #282e33;
@@ -21,6 +22,8 @@ body {
   font-size: var(--font-size);
   /* background-color: var(--tg-theme-secondary-bg-color); */
   background-color: var(--tg-theme-bg-color);
+  width: 100%;
+  height: 100%;
 }
 body {
   margin: 0 auto;
@@ -30,6 +33,13 @@ body {
   font-style: normal;
   font-weight: 400;
   color: var(--tg-theme-text-color);
+}
+body,
+app {
+  display: grid;
+}
+app {
+  grid-template-rows: max-content auto max-content;
 }
 a {
   color: var(--tg-theme-link-color);
