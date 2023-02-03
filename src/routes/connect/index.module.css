@@ -1,5 +1,6 @@
 .connect {
   display: grid;
-  place-items: center;
+  align-content: center;
   gap: 1rem;
+  justify-content: center;
 }
