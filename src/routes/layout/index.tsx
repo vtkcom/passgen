@@ -54,8 +54,9 @@ const Component: React.FC = () => {
       </main>
 
       <footer className={style.footer}>
-        <span>{platform}</span>
-        <span>{agent}</span>
+        <span>&copy;</span>
+        <span>{new Date().getFullYear()}</span>
+        <span>notguiltyman.ton</span>
       </footer>
     </>
   );
