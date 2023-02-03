@@ -1,14 +1,18 @@
 import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { useDetect } from "../../hooks/detect";
 
 const Component: React.FC = () => {
   const location = useLocation();
+  const { twa, platform, appCodeName } = useDetect();
 
   useEffect(init, []);
   useEffect(toggleBackButton, [location]);
 
   function init() {
+    WebApp.ready();
+
     localStorage.setItem("openendpoint", location.pathname);
 
     function back() {
@@ -22,17 +26,23 @@ const Component: React.FC = () => {
 
   function toggleBackButton() {
     const openEndpoint = localStorage.getItem("openendpoint");
-    console.log(openEndpoint);
-    console.log(location.pathname);
 
-    if (openEndpoint === location.pathname) {
-      WebApp.BackButton.hide();
-    } else {
-      WebApp.BackButton.show();
-    }
+    openEndpoint === location.pathname
+      ? WebApp.BackButton.hide()
+      : WebApp.BackButton.show();
   }
 
-  return <Outlet />;
+  return (
+    <>
+      {twa}
+      <br />
+      {platform}
+      <br />
+      {appCodeName}
+      <br />
+      <Outlet />
+    </>
+  );
 };
 
 export default Component;
