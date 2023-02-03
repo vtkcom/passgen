@@ -23,7 +23,7 @@ const qrCode = new QRCodeStyling({
   },
   dotsOptions: {
     type: "extra-rounded",
-    color: "#999",
+    color: "#45aef5",
     gradient: {
       type: "linear",
       rotation: 45,
