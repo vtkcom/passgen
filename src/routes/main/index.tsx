@@ -31,6 +31,7 @@ const Component: React.FC = () => {
   function toggleBackButton() {
     if (twa) {
       const openEndpoint = localStorage.getItem("openendpoint");
+      WebApp.HapticFeedback.impactOccurred("light");
 
       openEndpoint === location.pathname
         ? WebApp.BackButton.hide()
