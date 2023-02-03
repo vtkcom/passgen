@@ -1,23 +1,28 @@
-import {
-  useTonWallet,
-  useTonConnectUI,
-  useIsConnectionRestored,
-} from "@tonconnect/ui-react";
+import { useTonConnect } from "../hooks/tonconnect";
+import { useTonWallet } from "../hooks/tonwallet";
 
 const Component: React.FC = () => {
   const wallet = useTonWallet();
-  const restored = useIsConnectionRestored();
-  const [con, setCon] = useTonConnectUI();
+  const { connect, wallets } = useTonConnect();
 
-  console.log(restored);
-  console.log(con);
-  console.log(wallet);
-  
-//   con.connectWallet();
+  console.log(wallets);
 
-  return wallet?.account.address.toString() ? (
-    <div>{wallet?.account.address.toString()}</div>
-  ) : null;
+  //   con.connectWallet();
+
+  return (
+    <>
+      {wallets.map((info) => {
+        return (
+          <img
+            key={info.name}
+            src={info.imageUrl}
+            onClick={() => connect(info)}
+          />
+        );
+      })}
+      address: <b>{wallet?.account.address}</b>
+    </>
+  );
 };
 
 export default Component;
