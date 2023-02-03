@@ -23,23 +23,23 @@ const qrCode = new QRCodeStyling({
   },
   dotsOptions: {
     type: "extra-rounded",
-    color: "#45aef5",
+    color: WebApp.themeParams.button_color,
     gradient: {
       type: "linear",
       rotation: 45,
       colorStops: [
-        { offset: 0, color: "#45aef5" },
+        { offset: 0, color: WebApp.themeParams.button_color },
         { offset: 1, color: "#666" },
       ],
     },
   },
   cornersSquareOptions: {
     type: "extra-rounded",
-    color: "#45aef5",
+    color: WebApp.themeParams.button_color,
   },
   cornersDotOptions: {
     type: "dot",
-    color: "#45aef5",
+    color: WebApp.themeParams.button_color,
   },
 });
 
