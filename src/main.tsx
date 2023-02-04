@@ -3,9 +3,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   RouterProvider,
+  HashRouter,
   createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
+  Routes,
 } from "react-router-dom";
 import { StoreContext } from "storeon/react";
 import Layout from "./routes/layout";
@@ -15,7 +18,7 @@ import Connect from "./routes/connect";
 import "./index.css";
 import { store } from "./store";
 
-export const router = createBrowserRouter(
+export const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
@@ -31,7 +34,15 @@ export const router = createBrowserRouter(
 ReactDOM.createRoot(document.querySelector("app") as HTMLElement).render(
   <React.StrictMode>
     <StoreContext.Provider value={store}>
-      <RouterProvider router={router} />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="connect" element={<Connect />} />
+          </Route>
+        </Routes>
+      </HashRouter>
     </StoreContext.Provider>
   </React.StrictMode>
 );

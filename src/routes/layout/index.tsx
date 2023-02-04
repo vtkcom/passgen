@@ -13,11 +13,7 @@ import style from "./index.module.css";
 const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
-  // const { wallets } = useTonConnect();
   const { profile, dispatch } = useStoreon<State, Event>("profile");
-
-  // @todo: Записывать хэш
-  // location.hash
 
   useEffect(init, []);
   useEffect(toggleBackButton, [location]);
@@ -27,7 +23,7 @@ const Component: React.FC = () => {
     if (twa) {
       WebApp.ready();
 
-      localStorage.setItem("openendpoint", location.pathname);
+      localStorage.setItem("openendpoint", location.hash);
 
       function back() {
         history.back();
@@ -44,7 +40,7 @@ const Component: React.FC = () => {
       const openEndpoint = localStorage.getItem("openendpoint");
       WebApp.HapticFeedback.impactOccurred("light");
 
-      openEndpoint === location.pathname
+      openEndpoint === location.hash
         ? WebApp.BackButton.hide()
         : WebApp.BackButton.show();
     }
