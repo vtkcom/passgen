@@ -5,6 +5,7 @@ import TonConnect, {
   WalletInfoRemote,
   WalletInfoInjected,
 } from "@tonconnect/sdk";
+import WebApp from "@twa-dev/sdk";
 import { StoreonModule } from "storeon";
 
 const connector = new TonConnect({
@@ -68,6 +69,7 @@ export const profile: StoreonModule<State, Event> = (store) => {
 
       if (wallet === null) {
         store.dispatch("#profile/disconnect");
+        WebApp.HapticFeedback.notificationOccurred("success");
       } else {
         store.dispatch("profile/wallet/update", { wallet });
       }
