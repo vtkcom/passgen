@@ -7,10 +7,10 @@ import style from "./index.module.css";
 
 const Component: React.FC = () => {
   const location = useLocation();
-  const { twa, platform, agent } = useDetect();
+  const { twa } = useDetect();
 
-  // useEffect(init, []);
-  // useEffect(toggleBackButton, [location]);
+  useEffect(init, []);
+  useEffect(toggleBackButton, [location]);
 
   function init() {
     if (twa) {
