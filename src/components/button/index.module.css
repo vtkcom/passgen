@@ -7,8 +7,16 @@
   border-radius: 1rem;
   font-size: 1rem;
   display: grid;
-  place-items: center;
-  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  grid-auto-flow: column;
+  grid-template-columns: auto max-content;
+  cursor: pointer;
+}
+.button > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .toncoin {
   background-image: url(/toncoin-bg.svg);

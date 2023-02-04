@@ -7,12 +7,13 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import TonConnectProvider from "./components/tonconnectprovider";
+import { StoreContext } from "storeon/react";
 import Layout from "./routes/layout";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Connect from "./routes/connect";
 import "./index.css";
+import { store } from "./store";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,8 +30,8 @@ export const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.querySelector("app") as HTMLElement).render(
   <React.StrictMode>
-    <TonConnectProvider manifestUrl="https://vtkcom.github.io/passgen/tonconnect-manifest.json">
+    <StoreContext.Provider value={store}>
       <RouterProvider router={router} />
-    </TonConnectProvider>
+    </StoreContext.Provider>
   </React.StrictMode>
 );

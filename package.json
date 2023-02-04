@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@storeon/localstorage": "^1.5.0",
     "@tonconnect/sdk": "^2.0.7",
     "@tonconnect/ui-react": "^0.0.14",
     "@twa-dev/sdk": "^6.4.2",
@@ -16,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
+    "storeon": "^3.1.5",
     "vite-plugin-node-polyfills": "^0.7.0"
   },
   "devDependencies": {

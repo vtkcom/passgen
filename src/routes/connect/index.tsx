@@ -1,32 +1,36 @@
 import WebApp from "@twa-dev/sdk";
 import { useEffect, useState } from "react";
+import { useStoreon } from "storeon/react";
 import Button from "../../components/button";
 import Qr from "../../components/qr";
-import { useTonConnect } from "../../hooks/tonconnect";
-import { useTonWallet } from "../../hooks/tonwallet";
+import { Event, State } from "../../store";
 import style from "./index.module.css";
 
 const Component: React.FC = () => {
-  const { connect, wallets } = useTonConnect();
-  const [url, setUrl] = useState("");
-  const wallet = useTonWallet();
+  const { profile, dispatch } = useStoreon<State, Event>("profile");
 
   useEffect(() => {
-    if (wallets.length) {
-      const link = connect(wallets[0]);
-      setUrl(link!);
+    if (
+      profile.wallet === null &&
+      !profile.connect.isLoading &&
+      profile.connect.data === null &&
+      profile.wallets.data.length
+    ) {
+      console.log("pre", profile.wallets.data);
+
+      dispatch("profile/preconnect", { wallet: profile.wallets.data[0] });
     }
-  }, [wallets]);
+  }, [profile.wallets, profile.wallet]);
 
   function buttonConnect() {
-    WebApp.openLink(url);
+    WebApp.openLink(profile.connect.data!);
   }
 
   return (
     <div className={style.connect}>
-      {wallet === null && url !== "" && (
+      {profile.wallet === null && profile.connect.data !== "" && (
         <>
-          <Qr url={url} />
+          <Qr url={profile.connect.data!} />
           <Button isToncoin onClick={buttonConnect}>
             Connect to Tonkeeper
           </Button>

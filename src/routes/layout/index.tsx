@@ -2,19 +2,19 @@ import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useStoreon } from "storeon/react";
 import Button from "../../components/button";
 import Icon from "../../components/icon";
 import Sprites from "../../components/sprites";
 import { useDetect } from "../../hooks/detect";
-import { useTonConnect } from "../../hooks/tonconnect";
-import { useTonWallet } from "../../hooks/tonwallet";
+import { Event, State } from "../../store";
 import style from "./index.module.css";
 
 const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
-  const wallet = useTonWallet();
-  const { wallets, disconnect } = useTonConnect();
+  // const { wallets } = useTonConnect();
+  const { profile, dispatch } = useStoreon<State, Event>("profile");
 
   // @todo: Записывать хэш
   // location.hash
@@ -23,6 +23,7 @@ const Component: React.FC = () => {
   useEffect(toggleBackButton, [location]);
 
   function init() {
+    dispatch("profile/wallets/get");
     if (twa) {
       WebApp.ready();
 
@@ -51,27 +52,25 @@ const Component: React.FC = () => {
 
   return (
     <>
-      <header className={style.header}>
-        {wallet === null &&
-          wallets.length > 0 &&
+      <main className={style.main}>
+        <Outlet />
+      </main>
+
+      <div className={style.profile}>
+        {!profile.wallets.isLoading &&
+          profile.wallet === null &&
           location.pathname !== "/connect" && (
             <Link to="/connect">
               <Button isToncoin>Connect wallet</Button>
             </Link>
           )}
-        {wallet && (
-          <>
-            <div>{toUserFriendlyAddress(wallet.account.address)}</div>
-            <span onClick={disconnect}>
-              <Icon name="PowerOff" />
-            </span>
-          </>
+        {profile.wallet && (
+          <Button onClick={() => dispatch("profile/disconnect")}>
+            <span>{toUserFriendlyAddress(profile.wallet.account.address)}</span>
+            <Icon name="PowerOff" size={1.5} />
+          </Button>
         )}
-      </header>
-
-      <main className={style.main}>
-        <Outlet />
-      </main>
+      </div>
 
       <footer className={style.footer}>
         <span>&copy;</span>

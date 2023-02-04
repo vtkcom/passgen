@@ -39,7 +39,7 @@ app {
   display: grid;
 }
 app {
-  grid-template-rows: max-content auto max-content;
+  grid-template-rows: auto max-content max-content;
   padding: 0.5rem 0;
   gap: 1rem;
 }
