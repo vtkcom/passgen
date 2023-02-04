@@ -3,6 +3,8 @@ import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Button from "../../components/button";
+import Icon from "../../components/icon";
+import Sprites from "../../components/sprites";
 import { useDetect } from "../../hooks/detect";
 import { useTonConnect } from "../../hooks/tonconnect";
 import { useTonWallet } from "../../hooks/tonwallet";
@@ -60,7 +62,9 @@ const Component: React.FC = () => {
         {wallet && (
           <>
             <div>{toUserFriendlyAddress(wallet.account.address)}</div>
-            <span onClick={disconnect}>Disconnect</span>
+            <span onClick={disconnect}>
+              <Icon name="PowerOff" />
+            </span>
           </>
         )}
       </header>
@@ -74,6 +78,8 @@ const Component: React.FC = () => {
         <span>{new Date().getFullYear()}</span>
         <span>notguiltyman.ton</span>
       </footer>
+
+      <Sprites />
     </>
   );
 };
