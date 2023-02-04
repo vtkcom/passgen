@@ -1,12 +1,31 @@
+import WebApp from "@twa-dev/sdk";
+import { useEffect, useState } from "react";
 import Button from "../../components/button";
 import Qr from "../../components/qr";
+import { useTonConnect } from "../../hooks/tonconnect";
 import style from "./index.module.css";
 
 const Component: React.FC = () => {
+  const { connect, wallets } = useTonConnect();
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (wallets.length) {
+      const link = connect(wallets[0]);
+      setUrl(link!);
+    }
+  }, [wallets]);
+
+  function buttonConnect() {
+    WebApp.openLink(url);
+  }
+
   return (
     <div className={style.connect}>
-      <Qr url="https://fragment.com/59ed5647-4096-4888-9556-261a2e4b4930" />
-      <Button isToncoin>Connect to Tonkeeper</Button>
+      <Qr url={url} />
+      <Button isToncoin onClick={buttonConnect}>
+        Connect to Tonkeeper
+      </Button>
     </div>
   );
 };
