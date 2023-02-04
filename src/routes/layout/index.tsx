@@ -1,13 +1,18 @@
+import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Button from "../../components/button";
 import { useDetect } from "../../hooks/detect";
+import { useTonConnect } from "../../hooks/tonconnect";
+import { useTonWallet } from "../../hooks/tonwallet";
 import style from "./index.module.css";
 
 const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
+  const wallet = useTonWallet();
+  const { wallets } = useTonConnect();
 
   useEffect(init, []);
   useEffect(toggleBackButton, [location]);
@@ -42,11 +47,14 @@ const Component: React.FC = () => {
   return (
     <>
       <header className={style.header}>
-        {location.pathname !== "/connect" && (
-          <Link to="/connect">
-            <Button isToncoin>Connect wallet</Button>
-          </Link>
-        )}
+        {wallet === null &&
+          wallets.length > 0 &&
+          location.pathname !== "/connect" && (
+            <Link to="/connect">
+              <Button isToncoin>Connect wallet</Button>
+            </Link>
+          )}
+        {wallet && <div>{toUserFriendlyAddress(wallet.account.address)}</div>}
       </header>
 
       <main className={style.main}>

@@ -9,7 +9,7 @@ const qrCode = new QRCodeStyling({
   margin: 0,
   type: "canvas",
   qrOptions: {
-    errorCorrectionLevel: "Q",
+    errorCorrectionLevel: "L",
   },
   backgroundOptions: {
     color: "transparent",
@@ -21,7 +21,7 @@ const qrCode = new QRCodeStyling({
   },
   dotsOptions: {
     type: "extra-rounded",
-    color: WebApp.themeParams.button_color,
+    color: WebApp.themeParams.button_color ?? "#777",
     // gradient: {
     //   type: "linear",
     //   rotation: 45,
@@ -33,11 +33,11 @@ const qrCode = new QRCodeStyling({
   },
   cornersSquareOptions: {
     type: "extra-rounded",
-    color: WebApp.themeParams.button_color,
+    color: WebApp.themeParams.button_color ?? "#777",
   },
   cornersDotOptions: {
     type: "dot",
-    color: WebApp.themeParams.button_color,
+    color: WebApp.themeParams.button_color ?? "#777",
   },
 });
 
