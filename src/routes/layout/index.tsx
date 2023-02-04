@@ -9,8 +9,8 @@ const Component: React.FC = () => {
   const location = useLocation();
   const { twa, platform, agent } = useDetect();
 
-  useEffect(init, []);
-  useEffect(toggleBackButton, [location]);
+  // useEffect(init, []);
+  // useEffect(toggleBackButton, [location]);
 
   function init() {
     if (twa) {
