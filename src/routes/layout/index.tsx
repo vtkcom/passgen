@@ -12,7 +12,10 @@ const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
   const wallet = useTonWallet();
-  const { wallets } = useTonConnect();
+  const { wallets, disconnect } = useTonConnect();
+
+  // @todo: Записывать хэш
+  // location.hash
 
   useEffect(init, []);
   useEffect(toggleBackButton, [location]);
@@ -54,7 +57,12 @@ const Component: React.FC = () => {
               <Button isToncoin>Connect wallet</Button>
             </Link>
           )}
-        {wallet && <div>{toUserFriendlyAddress(wallet.account.address)}</div>}
+        {wallet && (
+          <>
+            <div>{toUserFriendlyAddress(wallet.account.address)}</div>
+            <span onClick={disconnect}>Disconnect</span>
+          </>
+        )}
       </header>
 
       <main className={style.main}>
@@ -69,5 +77,7 @@ const Component: React.FC = () => {
     </>
   );
 };
+
+Component.displayName = "Layout";
 
 export default Component;

@@ -15,8 +15,6 @@ export function useTonConnect() {
   const [walletsEmbedded, setWalletsEmbedded] =
     useState<WalletInfoInjected | null>(null);
 
-  //   console.log(connector);
-
   useEffect(() => {
     (async () => {
       const list = await connector!.getWallets();
@@ -47,6 +45,17 @@ export function useTonConnect() {
     },
     [wallets, connector]
   );
+  const callbackDisconnect = useCallback(
+    function disconnect() {
+      connector?.disconnect();
+    },
+    [connector]
+  );
 
-  return { connect: callbackConnect, wallets, walletsEmbedded };
+  return {
+    connect: callbackConnect,
+    disconnect: callbackDisconnect,
+    wallets,
+    walletsEmbedded,
+  };
 }

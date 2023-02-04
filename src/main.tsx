@@ -8,11 +8,11 @@ import {
   Route,
 } from "react-router-dom";
 import TonConnectProvider from "./components/tonconnectprovider";
-import "./index.css";
 import Layout from "./routes/layout";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Connect from "./routes/connect";
+import "./index.css";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
