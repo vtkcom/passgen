@@ -1,4 +1,5 @@
 .profile {
+  /* grid-area: profile; */
   padding: 0 1.5rem;
 }
 .profile a {
@@ -6,11 +7,13 @@
 }
 .main {
   display: grid;
+  /* grid-area: main; */
   /* align-items: start; */
   /* grid-auto-rows: max-content; */
 }
 .footer {
   display: grid;
+  /* grid-area: footer; */
   grid-auto-flow: column;
   grid-auto-columns: max-content;
   justify-content: space-between;

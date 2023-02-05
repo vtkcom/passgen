@@ -82,27 +82,38 @@ const Component: React.FC = () => {
     }
   }
 
+  function buttonConnect() {
+    WebApp.openLink(profile.connect.data!);
+  }
+
   return (
     <>
       <main className={style.main}>
         <Outlet />
       </main>
 
-      <div className={style.profile}>
-        {!profile.wallets.isLoading &&
-          profile.wallet === null &&
-          location.pathname !== "/connect" && (
-            <Link to="/connect" state={{ openEndpoint: location.pathname }}>
-              <Button isToncoin>Connect wallet</Button>
-            </Link>
-          )}
-        {profile.wallet && (
+      {profile.wallet === null && location.pathname !== "/connect" && (
+        <div className={style.profile}>
+          <Link to="/connect" state={{ openEndpoint: location.pathname }}>
+            <Button isToncoin>Connect wallet</Button>
+          </Link>
+        </div>
+      )}
+      {profile.wallet === null && location.pathname === "/connect" && (
+        <div className={style.profile}>
+          <Button isToncoin onClick={buttonConnect}>
+            Connect to Tonkeeper
+          </Button>
+        </div>
+      )}
+      {profile.wallet && (
+        <div className={style.profile}>
           <Button onClick={() => dispatch("profile/disconnect")}>
             <span>{toUserFriendlyAddress(profile.wallet.account.address)}</span>
             <Icon name="PowerOff" size={1.5} />
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
       <footer className={style.footer}>
         <span>

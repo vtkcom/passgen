@@ -2,5 +2,12 @@
   display: grid;
   align-content: center;
   gap: 1rem;
-  justify-content: center;
+  justify-items: center;
+  background-color: var(--tg-theme-secondary-bg-color);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.connect p {
+  text-align: center;
+  color: var(--tg-theme-hint-color);
 }

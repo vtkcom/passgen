@@ -1,5 +1,5 @@
+import { useEffect, useRef, memo } from "react";
 import QRCodeStyling from "qr-code-styling";
-import { useEffect, useRef } from "react";
 import WebApp from "@twa-dev/sdk";
 import style from "./index.module.css";
 
@@ -56,9 +56,11 @@ const Component: React.FC<Props> = ({ url }) => {
     qrCode.update({
       data: url,
     });
-  }, [url]);
+  }, []);
 
   return <div className={style.qr} ref={ref} />;
 };
 
-export default Component;
+Component.displayName = "QRCode";
+
+export default memo(Component);

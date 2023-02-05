@@ -33,10 +33,6 @@ const Component: React.FC = () => {
     }
   }
 
-  function buttonConnect() {
-    WebApp.openLink(profile.connect.data!);
-  }
-
   function afterConnect() {
     if (profile.wallet)
       navigate(location.state?.openEndpoint ?? "/", { replace: true });
@@ -46,12 +42,18 @@ const Component: React.FC = () => {
     <Wrap style={{ gridTemplateRows: "max-content auto" }}>
       <Title>Connect to Tonkeeper</Title>
       {profile.wallet === null && (
-        <div className={style.connect}>
-          <Qr url={profile.connect.data!} />
-          <Button isToncoin onClick={buttonConnect}>
-            Connect to Tonkeeper
-          </Button>
-        </div>
+        <>
+          <div className={style.connect}>
+            <Qr url={profile.connect.data!} />
+            <p>
+              Corporis asperiores est ut perspiciatis. Distinctio provident
+              cupiditate doloribus error sunt aspernatur dolores. Fugiat
+              sapiente explicabo repellat repellat ut. Corrupti qui quia qui
+              cumque alias est accusamus. Voluptas magni natus debitis repellat
+              aut tenetur. Rerum et aut aut qui omnis iure autem.
+            </p>
+          </div>
+        </>
       )}
     </Wrap>
   );
