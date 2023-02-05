@@ -20,12 +20,12 @@ const Component: React.FC = () => {
   function preConnect() {
     const isNotConnect = profile.wallet === null;
     const isNotLoadingConnect = !profile.connect.isLoading;
-    const isEmptyConnectURL = profile.connect.data === null;
+    const isEmptyConnectURL = profile.connect.data === "";
     const isNotEmptyWallets = profile.wallets.data.length;
     const isNeedNewURL =
       isNotConnect &&
       isNotLoadingConnect &&
-      // isEmptyConnectURL &&
+      isEmptyConnectURL &&
       isNotEmptyWallets;
 
     if (isNeedNewURL) {
@@ -42,18 +42,16 @@ const Component: React.FC = () => {
     <Wrap style={{ gridTemplateRows: "max-content auto" }}>
       <Title>Connect to Tonkeeper</Title>
       {profile.wallet === null && (
-        <>
-          <div className={style.connect}>
-            <Qr url={profile.connect.data!} />
-            <p>
-              Corporis asperiores est ut perspiciatis. Distinctio provident
-              cupiditate doloribus error sunt aspernatur dolores. Fugiat
-              sapiente explicabo repellat repellat ut. Corrupti qui quia qui
-              cumque alias est accusamus. Voluptas magni natus debitis repellat
-              aut tenetur. Rerum et aut aut qui omnis iure autem.
-            </p>
-          </div>
-        </>
+        <div className={style.connect}>
+          <Qr url={profile.connect.data!} />
+          <p>
+            Corporis asperiores est ut perspiciatis. Distinctio provident
+            cupiditate doloribus error sunt aspernatur dolores. Fugiat sapiente
+            explicabo repellat repellat ut. Corrupti qui quia qui cumque alias
+            est accusamus. Voluptas magni natus debitis repellat aut tenetur.
+            Rerum et aut aut qui omnis iure autem.
+          </p>
+        </div>
       )}
     </Wrap>
   );
