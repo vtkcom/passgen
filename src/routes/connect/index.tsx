@@ -14,7 +14,7 @@ const Component: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(preConnect, [profile.wallets, profile.wallet]);
+  useEffect(preConnect, [profile.wallets, profile.wallet, profile.connect]);
   useEffect(afterConnect, [profile.wallet]);
 
   function preConnect() {
