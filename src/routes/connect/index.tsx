@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useStoreon } from "storeon/react";
 import Button from "../../components/button";
 import Qr from "../../components/qr";
+import Title from "../../components/title";
+import Wrap from "../../components/wrap";
 import { Event, State } from "../../store";
 import style from "./index.module.css";
 
@@ -23,7 +25,7 @@ const Component: React.FC = () => {
     const isNeedNewURL =
       isNotConnect &&
       isNotLoadingConnect &&
-      isEmptyConnectURL &&
+      // isEmptyConnectURL &&
       isNotEmptyWallets;
 
     if (isNeedNewURL) {
@@ -41,16 +43,17 @@ const Component: React.FC = () => {
   }
 
   return (
-    <div className={style.connect}>
+    <Wrap style={{ gridTemplateRows: "max-content auto" }}>
+      <Title>Connect to Tonkeeper</Title>
       {profile.wallet === null && (
-        <>
+        <div className={style.connect}>
           <Qr url={profile.connect.data!} />
           <Button isToncoin onClick={buttonConnect}>
             Connect to Tonkeeper
           </Button>
-        </>
+        </div>
       )}
-    </div>
+    </Wrap>
   );
 };
 

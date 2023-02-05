@@ -17,4 +17,6 @@ const Component: React.FC<Props> = ({ children, onClick, isToncoin }) => {
   );
 };
 
+Component.displayName = "Button";
+
 export default Component;

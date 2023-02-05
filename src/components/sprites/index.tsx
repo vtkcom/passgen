@@ -1,3 +1,4 @@
+import { memo } from "react";
 import style from "./index.module.css";
 
 export type IconName = "PowerOff" | "LogoTON";
@@ -29,4 +30,6 @@ const Component: React.FC = () => {
   );
 };
 
-export default Component;
+Component.displayName = "Sprites";
+
+export default memo(Component);

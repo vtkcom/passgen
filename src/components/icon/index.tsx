@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { IconName } from "../sprites";
 import style from "./index.module.css";
 
@@ -17,4 +18,6 @@ const Component: React.FC<Props> = ({ name, size = 2 }) => {
   );
 };
 
-export default Component;
+Component.displayName = "Icon";
+
+export default memo(Component);
