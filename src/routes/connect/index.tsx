@@ -15,13 +15,13 @@ const Component: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(preConnect, [wallets, wallet, connect]);
+  useEffect(preConnect, [wallets]);
   useEffect(afterConnect, [wallet]);
 
   function preConnect() {
     const isNotConnect = wallet === null;
     const isNotLoadingConnect = !connect.isLoading;
-    const isEmptyConnectURL = connect.data === "";
+    const isEmptyConnectURL = connect.data === null;
     const isNotEmptyWallets = wallets.data.length;
     const isNeedNewURL =
       isNotConnect &&

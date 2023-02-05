@@ -98,8 +98,12 @@ export const profile: StoreonModule<State, Event> = (store) => {
     },
   }));
 
-  store.on("profile/disconnect", async (state) => {
-    await connector.disconnect();
+  store.on("profile/disconnect", (state) => {
+    connector.disconnect();
+
+    return {
+      ...state,
+    };
   });
 
   store.on("#profile/disconnect", (state) => {
