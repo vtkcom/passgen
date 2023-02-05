@@ -12,13 +12,20 @@
 .footer {
   display: grid;
   grid-auto-flow: column;
-  gap: 0.3rem;
-  /* grid-auto-columns: auto; */
   grid-auto-columns: max-content;
-  justify-content: center;
-  align-content: center;
+  justify-content: space-between;
+  align-items: center;
   color: var(--tg-theme-hint-color);
   padding: 0 1.5rem;
   line-height: 1;
   font-size: 0.8rem;
+}
+.footer span {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.3rem;
+  /* grid-auto-columns: auto; */
+  grid-auto-columns: max-content;
+  justify-content: center;
+  align-items: center;
 }

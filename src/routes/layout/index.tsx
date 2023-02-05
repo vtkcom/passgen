@@ -105,9 +105,14 @@ const Component: React.FC = () => {
       </div>
 
       <footer className={style.footer}>
-        <span>&copy;</span>
-        <span>{new Date().getFullYear()}</span>
-        <span>notguiltyman.ton</span>
+        <span>
+          <Icon name="LogoTON" size={1.5} /> TON
+        </span>
+        <span>
+          <div>&copy;</div>
+          <div>{new Date().getFullYear()}</div>
+          <div>notguiltyman.ton</div>
+        </span>
       </footer>
 
       <Sprites />
