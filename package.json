@@ -13,6 +13,7 @@
     "@tonconnect/sdk": "^2.0.7",
     "@tonconnect/ui-react": "^0.0.14",
     "@twa-dev/sdk": "^6.4.2",
+    "@types/node": "^18.11.19",
     "qr-code-styling": "^1.6.0-rc.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

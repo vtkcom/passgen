@@ -17,6 +17,6 @@ export const router = createBrowserRouter(
     </Route>
   ),
   {
-    basename: "/passgen",
+    basename: process.env.NODE_ENV === "development" ? "/" : "/passgen",
   }
 );
