@@ -6,8 +6,8 @@
 }
 .sticky {
   padding-bottom: calc(0.6rem + 1px);
-  background-color: hsla(0, 0%, 10%, 0.4);
-  backdrop-filter: blur(10px);
+  background-color: hsla(0, 0%, 10%, 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
 }
 .profile a {
   text-decoration: none;
