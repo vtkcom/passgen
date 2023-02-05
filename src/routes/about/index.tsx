@@ -2,31 +2,22 @@ import { useState } from "react";
 import Button from "../../components/button";
 import Wrap from "../../components/wrap";
 import reactLogo from "../../assets/react.svg";
+import Title from "../../components/title";
+import { Link } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <Wrap>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+      <Title>About</Title>
+      <Link to="/">Home</Link>
+      <p>
+        Corporis asperiores est ut perspiciatis. Distinctio provident cupiditate
+        doloribus error sunt aspernatur dolores. Fugiat sapiente explicabo
+        repellat repellat ut. Corrupti qui quia qui cumque alias est accusamus.
+        Voluptas magni natus debitis repellat aut tenetur. Rerum et aut aut qui
+        omnis iure autem.
       </p>
     </Wrap>
   );
