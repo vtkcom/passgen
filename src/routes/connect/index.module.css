@@ -3,7 +3,8 @@
   align-content: center;
   gap: 1rem;
   justify-items: center;
-  background-color: var(--tg-theme-secondary-bg-color);
+  background-color: hsla(0, 0%, 0%, 0.15);
+  /* background-color: var(--tg-theme-secondary-bg-color); */
   border-radius: 1rem;
   padding: 2rem;
 }
