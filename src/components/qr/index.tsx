@@ -63,4 +63,4 @@ const Component: React.FC<Props> = ({ url }) => {
 
 Component.displayName = "QRCode";
 
-export default memo(Component);
+export default Component;

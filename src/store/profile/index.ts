@@ -65,6 +65,8 @@ const initState: State = {
 export const profile: StoreonModule<State, Event> = (store) => {
   connector.onStatusChange(
     (wallet) => {
+      console.log("update", wallet);
+
       if (wallet === null) {
         store.dispatch("#profile/disconnect");
         WebApp.HapticFeedback.notificationOccurred("success");

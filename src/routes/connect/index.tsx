@@ -24,9 +24,9 @@ const Component: React.FC = () => {
     const isEmptyConnectURL = connect.data === null;
     const isNotEmptyWallets = wallets.data.length;
     const isNeedNewURL =
-      isNotConnect &&
+      // isNotConnect &&
       isNotLoadingConnect &&
-      isEmptyConnectURL &&
+      // isEmptyConnectURL &&
       isNotEmptyWallets;
 
     if (isNeedNewURL) {
