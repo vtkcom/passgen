@@ -1,6 +1,6 @@
 import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useStoreon } from "storeon/react";
 import Button from "../../components/button";
@@ -18,8 +18,10 @@ const Component: React.FC = () => {
   const { twa } = useDetect();
   const { profile, dispatch } = useStoreon<State, Event>("profile");
   const theme = useSystemTheme();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(init, []);
+  useEffect(observeSticky, [ref.current]);
   useEffect(toggleBackButton, [location]);
   useEffect(initTheme, [theme]);
 
@@ -59,7 +61,7 @@ const Component: React.FC = () => {
     if (twa) {
       WebApp.ready();
 
-      localStorage.setItem("openendpoint", location.hash);
+      localStorage.setItem("openendpoint", location.pathname);
 
       function back() {
         history.back();
@@ -76,7 +78,7 @@ const Component: React.FC = () => {
       const openEndpoint = localStorage.getItem("openendpoint");
       WebApp.HapticFeedback.impactOccurred("light");
 
-      openEndpoint === location.hash
+      openEndpoint === location.pathname
         ? WebApp.BackButton.hide()
         : WebApp.BackButton.show();
     }
@@ -86,34 +88,46 @@ const Component: React.FC = () => {
     WebApp.openLink(profile.connect.data!);
   }
 
+  function observeSticky() {
+    if (ref.current) {
+      const el = ref.current;
+
+      const observer = new IntersectionObserver(
+        ([e]) =>
+          e.target.classList.toggle(style.sticky, e.intersectionRatio < 1),
+        { threshold: [1] }
+      );
+
+      observer.observe(el);
+
+      return () => observer.unobserve(el);
+    }
+  }
+
   return (
     <>
       <main className={style.main}>
         <Outlet />
       </main>
 
-      {profile.wallet === null && location.pathname !== "/connect" && (
-        <div className={style.profile}>
+      <div className={style.profile} ref={ref}>
+        {profile.wallet === null && location.pathname !== "/connect" && (
           <Link to="/connect" state={{ openEndpoint: location.pathname }}>
             <Button isToncoin>Connect wallet</Button>
           </Link>
-        </div>
-      )}
-      {profile.wallet === null && location.pathname === "/connect" && (
-        <div className={style.profile}>
+        )}
+        {profile.wallet === null && location.pathname === "/connect" && (
           <Button isToncoin onClick={buttonConnect}>
             Connect to Tonkeeper
           </Button>
-        </div>
-      )}
-      {profile.wallet && (
-        <div className={style.profile}>
+        )}
+        {profile.wallet && (
           <Button onClick={() => dispatch("profile/disconnect")}>
             <span>{toUserFriendlyAddress(profile.wallet.account.address)}</span>
             <Icon name="PowerOff" size={1.5} />
           </Button>
-        </div>
-      )}
+        )}
+      </div>
 
       <footer className={style.footer}>
         <span>

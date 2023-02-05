@@ -1,6 +1,13 @@
 .profile {
   /* grid-area: profile; */
-  padding: 0 1.5rem;
+  padding: 0.6rem 1.5rem;
+  position: sticky;
+  bottom: -1px;
+}
+.sticky {
+  padding-bottom: calc(0.6rem + 1px);
+  background-color: hsla(0, 0%, 10%, 0.4);
+  backdrop-filter: blur(10px);
 }
 .profile a {
   text-decoration: none;
