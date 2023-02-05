@@ -41,7 +41,10 @@ const Component: React.FC = () => {
     colorScheme.content = t;
 
     themeColor.name = "theme-color";
-    themeColor.content = t === "dark" ? "#000000" : "#FFFFFF";
+    themeColor.content =
+      t === "dark"
+        ? WebApp.themeParams.bg_color ?? "#000"
+        : WebApp.themeParams.bg_color ?? "#fff";
 
     document.title = t === "dark" ? "👊🤘🤙" : "👊🏿🤘🏿🤙🏿";
 

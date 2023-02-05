@@ -25,6 +25,7 @@ body {
   background-color: var(--tg-theme-bg-color);
   width: 100%;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 body {
   margin: 0 auto;
@@ -38,6 +39,7 @@ body {
 body,
 app {
   display: grid;
+  -webkit-overflow-scrolling: touch;
 }
 app {
   grid-template-rows: auto max-content max-content;

@@ -6,8 +6,9 @@
 }
 .sticky {
   padding-bottom: calc(0.6rem + 1px);
-  background-color: hsla(0, 0%, 10%, 0.7);
-  backdrop-filter: saturate(180%) blur(20px);
+  /* background-color: hsla(0, 0%, 10%, 0.7); */
+  background-color: color(var(--tg-theme-secondary-bg-color) a(70%));
+  backdrop-filter: saturate(180%) blur(0.5rem);
 }
 .profile a {
   text-decoration: none;
