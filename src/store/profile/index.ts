@@ -1,4 +1,3 @@
-import { getHttpEndpoint } from "@orbs-network/ton-access";
 import TonConnect, {
   type Wallet,
   type WalletInfo,
@@ -7,23 +6,10 @@ import TonConnect, {
 } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { StoreonModule } from "storeon";
-import { TonClient } from "ton";
-import {
-  JettonApi,
-  DNSApi,
-  NFTApi,
-  RawBlockchainApi,
-  SubscriptionApi,
-  TraceApi,
-  WalletApi,
-  Configuration,
-} from "tonapi-sdk-js";
+import { DNSApi, NFTApi, Configuration } from "tonapi-sdk-js";
+
 const connector = new TonConnect({
   manifestUrl: "https://vtkcom.github.io/passgen/tonconnect-manifest.json",
-});
-
-const client = new TonClient({
-  endpoint: await getHttpEndpoint({ network: "mainnet" }),
 });
 
 connector.restoreConnection();
