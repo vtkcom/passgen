@@ -16,6 +16,8 @@
     "@types/node": "^18.11.19",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
+    "postcss-color-mod-function": "^3.0.3",
+    "postcss-preset-env": "^8.0.1",
     "qr-code-styling": "^1.6.0-rc.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

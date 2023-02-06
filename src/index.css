@@ -48,10 +48,14 @@ app {
 }
 a {
   color: var(--tg-theme-link-color);
+
+  &:hover {
+    color: var(--tg-theme-hint-color);
+  }
 }
-a:hover {
+/* a:hover {
   color: var(--tg-theme-hint-color);
-}
+} */
 h1,
 h2,
 h3,
