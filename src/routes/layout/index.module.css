@@ -5,9 +5,9 @@
   bottom: -1px;
   &.sticky {
     padding-bottom: calc(0.6rem + 1px);
-    background-color: var(--tg-theme-secondary-bg-color);
-    /* background-color: color-mod(var(--tg-theme-secondary-bg-color) a(70%)); */
-    backdrop-filter: blur(0.5rem);
+    /* background-color: var(--tg-theme-secondary-bg-color); */
+    background-color: color-mod(var(--tg-theme-bg-color) a(90%));
+    backdrop-filter: blur(0.3rem);
   }
 }
 .profile a {
