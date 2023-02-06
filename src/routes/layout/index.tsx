@@ -12,6 +12,8 @@ import { Event, State } from "../../store";
 import darkIcon from "../../assets/icons/dark.svg";
 import lightIcon from "../../assets/icons/light.svg";
 import style from "./index.module.css";
+import { maskifyAddress } from "../../utils/maskifyaddress";
+import Avatar from "../../components/avatar";
 
 const Component: React.FC = () => {
   const location = useLocation();
@@ -126,10 +128,30 @@ const Component: React.FC = () => {
         )}
         {profile.wallet && (
           <div className={style.profile}>
-            <span>{toUserFriendlyAddress(profile.wallet.account.address)}</span>
+            <span className={style.wallet}>
+              <Avatar
+                src={
+                  profile.avatar ??
+                  `https://source.boringavatars.com/marble/200/${toUserFriendlyAddress(
+                    profile.wallet.account.address
+                  )}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
+                }
+              />
+              <div className={style.information}>
+                {profile.dns !== null && (
+                  <div className={style.dns}>{profile.dns}.ton</div>
+                )}
+                <div>
+                  {maskifyAddress(
+                    toUserFriendlyAddress(profile.wallet.account.address)
+                  )}
+                </div>
+              </div>
+            </span>
             <Icon
               name="PowerOff"
               onClick={() => dispatch("profile/disconnect")}
+              style={{ cursor: "pointer" }}
             />
           </div>
         )}

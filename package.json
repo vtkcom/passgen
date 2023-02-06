@@ -9,12 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.2.2",
     "@storeon/localstorage": "^1.5.0",
     "@tonconnect/sdk": "^2.0.7",
     "@tonconnect/ui-react": "^0.0.14",
     "@twa-dev/sdk": "^6.4.2",
     "@types/node": "^18.11.19",
     "autoprefixer": "^10.4.13",
+    "avvvatars-react": "^0.4.2",
     "postcss": "^8.4.21",
     "postcss-color-mod-function": "^3.0.3",
     "postcss-preset-env": "^8.0.1",
@@ -23,6 +25,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
     "storeon": "^3.1.5",
+    "ton": "^13.3.0",
+    "ton-core": "^0.47.0",
+    "ton-crypto": "^3.2.0",
+    "tonapi-sdk-js": "^0.24.0",
     "vite-plugin-node-polyfills": "^0.7.0"
   },
   "devDependencies": {

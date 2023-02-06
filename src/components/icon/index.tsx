@@ -11,7 +11,7 @@ const Component: React.FC<Props> = ({ name, size = 2, ...props }) => {
   return (
     <svg
       {...props}
-      style={{ width: `${size}rem`, height: `${size}rem` }}
+      style={{ width: `${size}rem`, height: `${size}rem`, ...props.style }}
       className={style.icon}
     >
       <use href={`#svg-${name}`} />

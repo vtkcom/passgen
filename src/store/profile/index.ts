@@ -1,15 +1,29 @@
+import { getHttpEndpoint } from "@orbs-network/ton-access";
 import TonConnect, {
   type Wallet,
   type WalletInfo,
   toUserFriendlyAddress,
   WalletInfoRemote,
-  WalletInfoInjected,
 } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { StoreonModule } from "storeon";
-
+import { TonClient } from "ton";
+import {
+  JettonApi,
+  DNSApi,
+  NFTApi,
+  RawBlockchainApi,
+  SubscriptionApi,
+  TraceApi,
+  WalletApi,
+  Configuration,
+} from "tonapi-sdk-js";
 const connector = new TonConnect({
   manifestUrl: "https://vtkcom.github.io/passgen/tonconnect-manifest.json",
+});
+
+const client = new TonClient({
+  endpoint: await getHttpEndpoint({ network: "mainnet" }),
 });
 
 connector.restoreConnection();
@@ -20,6 +34,8 @@ export interface State {
     isFinish: boolean;
     error: string | null;
     addressWallet: string | null;
+    dns: string | null;
+    avatar: string | null;
     wallet: Wallet | null;
     wallets: {
       isLoading: boolean;
@@ -33,12 +49,19 @@ export interface State {
 }
 
 export interface Event {
-  "profile/wallet/update": { wallet: Wallet | null };
+  "profile/wallet/update": {
+    wallet: Wallet | null;
+    dns: string | null;
+    avatar: string | null;
+  };
+
   "profile/disconnect": undefined;
   "#profile/disconnect": undefined;
+
   "profile/wallets/get": undefined;
   "#profile/wallets/req": undefined;
   "#profile/wallets/res": { wallets: WalletInfo[] };
+
   "profile/preconnect": { wallet: WalletInfo };
   "#profile/preconnect/req": undefined;
   "#profile/preconnect/res": { url: string };
@@ -50,6 +73,8 @@ const initState: State = {
     isFinish: false,
     wallet: null,
     addressWallet: null,
+    dns: null,
+    avatar: null,
     error: null,
     wallets: {
       isLoading: true,
@@ -64,14 +89,47 @@ const initState: State = {
 
 export const profile: StoreonModule<State, Event> = (store) => {
   connector.onStatusChange(
-    (wallet) => {
+    async (wallet) => {
       console.log("update", wallet);
 
       if (wallet === null) {
         store.dispatch("#profile/disconnect");
         WebApp.HapticFeedback.notificationOccurred("success");
       } else {
-        store.dispatch("profile/wallet/update", { wallet });
+        const dns = new DNSApi(
+          new Configuration({
+            headers: {
+              // To get unlimited requests
+              Authorization: `Bearer ${import.meta.env.VITE_TONAPI_KEY}`,
+            },
+          })
+        );
+
+        const nft = new NFTApi(
+          new Configuration({
+            headers: {
+              // To get unlimited requests
+              Authorization: `Bearer ${import.meta.env.VITE_TONAPI_KEY}`,
+            },
+          })
+        );
+
+        const [{ domains }, { nftItems }] = await Promise.all([
+          dns.dnsBackResolve({
+            account: toUserFriendlyAddress(wallet.account.address),
+          }),
+          nft.getNftItemsByOwnerAddress({
+            account: toUserFriendlyAddress(wallet.account.address),
+          }),
+        ]);
+
+        store.dispatch("profile/wallet/update", {
+          wallet,
+          dns: domains[0] ?? null,
+          avatar:
+            nftItems.filter((a) => a.metadata.attributes && a.metadata.image)[0]
+              .metadata.image ?? null,
+        });
       }
     },
     (err) => {
@@ -79,11 +137,10 @@ export const profile: StoreonModule<State, Event> = (store) => {
       console.log(err.name);
     }
   );
+
   store.on("@init", () => ({ ...initState }));
 
-  //   store.dispatch("profile/wallets/get");
-
-  store.on("profile/wallet/update", (state, { wallet }) => ({
+  store.on("profile/wallet/update", (state, { wallet, dns, avatar }) => ({
     ...state,
     profile: {
       ...state.profile,
@@ -91,6 +148,8 @@ export const profile: StoreonModule<State, Event> = (store) => {
       addressWallet: wallet
         ? toUserFriendlyAddress(wallet.account.address)
         : null,
+      dns,
+      avatar,
       isFinish: true,
       isLoading: false,
       connect: {
@@ -112,15 +171,7 @@ export const profile: StoreonModule<State, Event> = (store) => {
     return {
       ...state,
       profile: {
-        ...state.profile,
-        wallet: null,
-        addressWallet: null,
-        isFinish: false,
-        isLoading: false,
-        connect: {
-          isLoading: false,
-          data: null,
-        },
+        ...initState.profile,
       },
     };
   });
