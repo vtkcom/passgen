@@ -113,7 +113,7 @@ const Component: React.FC = () => {
         <Outlet />
       </main>
 
-      <div className={style.profile} ref={ref}>
+      <div className={style.connect} ref={ref}>
         {profile.wallet === null && location.pathname !== "/connect" && (
           <Link to="/connect" state={{ openEndpoint: location.pathname }}>
             <Button isToncoin>Connect wallet</Button>
@@ -125,17 +125,20 @@ const Component: React.FC = () => {
           </Button>
         )}
         {profile.wallet && (
-          <Button onClick={() => dispatch("profile/disconnect")}>
+          <div className={style.profile}>
             <span>{toUserFriendlyAddress(profile.wallet.account.address)}</span>
-            <Icon name="PowerOff" size={1.5} />
-          </Button>
+            <Icon
+              name="PowerOff"
+              onClick={() => dispatch("profile/disconnect")}
+            />
+          </div>
         )}
       </div>
 
       <footer className={style.footer}>
         <span>
           <Icon name="LogoTON" size={1.5} />
-          <strong>TON</strong>
+          TON
         </span>
         <span>
           <div>&copy;</div>

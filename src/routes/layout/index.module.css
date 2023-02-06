@@ -1,17 +1,29 @@
-.profile {
+.connect {
   /* grid-area: profile; */
   padding: 0.6rem 1.5rem;
   position: sticky;
   bottom: -1px;
   &.sticky {
     padding-bottom: calc(0.6rem + 1px);
-    background-color: hsla(0, 0%, 0%, 0.1);
+    background-color: hsla(0, 0%, 0%, 0.05);
     /* background-color: color-mod(var(--tg-theme-bg-color) a(90%)); */
-    backdrop-filter: blur(1rem);
+    backdrop-filter: blur(0.8rem);
   }
 }
-.profile a {
+.connect a {
   text-decoration: none;
+}
+.profile {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  align-items: center;
+  min-height: 3.5rem;
+  & > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 .main {
   display: grid;
