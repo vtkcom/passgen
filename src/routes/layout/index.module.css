@@ -6,7 +6,7 @@
   &.sticky {
     padding-bottom: calc(0.6rem + 1px);
     /* background-color: hsla(0, 0%, 10%, 0.7); */
-    background-color: color-mod(var(--tg-theme-bg-color) a(70%));
+    background-color: color-mod(var(--tg-theme-bg-color) a(40%));
     backdrop-filter: blur(0.5rem);
   }
 }
