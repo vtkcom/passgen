@@ -13,5 +13,5 @@ export type Event = ProfileEvent;
 export const store = createStoreon<State, Event>([
   profile,
   process.env.NODE_ENV !== "production" && storeonLogger,
-  persistState(["profile"]),
+  // persistState(["profile"]),
 ]);
