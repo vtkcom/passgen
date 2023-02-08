@@ -122,7 +122,7 @@ const Component: React.FC = () => {
         <Outlet />
       </main>
 
-      <div className={style.connect} ref={ref}>
+      <div className={style.connect + " " + style[WebApp.platform]} ref={ref}>
         {connect.wallet === null && location.pathname !== "/connect" && (
           <Link to="/connect" state={{ openEndpoint: location.pathname }}>
             <Button isToncoin>Connect wallet</Button>
