@@ -67,7 +67,7 @@ export const profile: StoreonModule<State, Event> = (store) => {
       dns: domains ? domains[0] ?? null : null,
       avatar:
         nftItems.filter((a) => a.metadata.attributes && a.metadata.image)[0]
-          .metadata.image ?? null,
+          ?.metadata.image ?? null,
     });
   });
 };

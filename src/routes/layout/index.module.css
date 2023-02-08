@@ -7,7 +7,7 @@
     padding-bottom: calc(0.6rem + 1px);
     background-color: hsla(0, 0%, 0%, 0.05);
     /* background-color: color-mod(var(--tg-theme-bg-color) a(90%)); */
-    backdrop-filter: blur(0.8rem);
+    backdrop-filter: saturate(110%) blur(0.6rem);
   }
 }
 .connect a {
