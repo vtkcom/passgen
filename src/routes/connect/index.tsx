@@ -9,28 +9,26 @@ import style from "./index.module.css";
 
 const Component: React.FC = () => {
   const {
-    profile: { wallet, wallets, connect },
+    profile,
+    connect: { wallet, wallets, url },
     dispatch,
-  } = useStoreon<State, Event>("profile");
+  } = useStoreon<State, Event>("profile", "connect");
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(getWallets, []);
   useEffect(preConnect, [wallets]);
   useEffect(afterConnect, [wallet]);
 
-  function preConnect() {
-    const isNotConnect = wallet === null;
-    const isNotLoadingConnect = !connect.isLoading;
-    const isEmptyConnectURL = connect.data === null;
-    const isNotEmptyWallets = wallets.data.length;
-    const isNeedNewURL =
-      // isNotConnect &&
-      isNotLoadingConnect &&
-      // isEmptyConnectURL &&
-      isNotEmptyWallets;
+  function getWallets() {
+    dispatch("connect/wallets");
+  }
 
-    if (isNeedNewURL) {
-      dispatch("profile/preconnect", { wallet: wallets.data[0] });
+  function preConnect() {
+    const isNotEmptyWallets = wallets.data.length;
+
+    if (isNotEmptyWallets) {
+      dispatch("connect/url", { wallet: wallets.data[0] });
     }
   }
 
@@ -42,9 +40,9 @@ const Component: React.FC = () => {
   return (
     <Wrap style={{ gridTemplateRows: "max-content auto" }}>
       <Title>Connect to Tonkeeper</Title>
-      {connect.data !== null && connect.data !== "" && (
+      {url !== null && (
         <div className={style.connect}>
-          <Qr url={connect.data} />
+          <Qr url={url} />
           <p>
             Corporis asperiores est ut perspiciatis. Distinctio provident
             cupiditate doloribus error sunt aspernatur dolores. Fugiat sapiente

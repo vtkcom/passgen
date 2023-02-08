@@ -18,11 +18,15 @@ import Avatar from "../../components/avatar";
 const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
-  const { profile, dispatch } = useStoreon<State, Event>("profile");
+  const { profile, connect, dispatch } = useStoreon<State, Event>(
+    "profile",
+    "connect"
+  );
   const theme = useSystemTheme();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(init, []);
+  useEffect(getProfile, [connect.wallet]);
   useEffect(observeSticky, [ref.current]);
   useEffect(toggleBackButton, [location]);
   useEffect(initTheme, [theme]);
@@ -62,7 +66,6 @@ const Component: React.FC = () => {
   }
 
   function init() {
-    dispatch("profile/wallets/get");
     if (twa) {
       WebApp.ready();
 
@@ -90,7 +93,7 @@ const Component: React.FC = () => {
   }
 
   function buttonConnect() {
-    WebApp.openLink(profile.connect.data!);
+    WebApp.openLink(connect.url!);
   }
 
   function observeSticky() {
@@ -109,6 +112,10 @@ const Component: React.FC = () => {
     }
   }
 
+  function getProfile() {
+    if (connect.wallet) dispatch("profile/update", { wallet: connect.wallet });
+  }
+
   return (
     <>
       <main className={style.main}>
@@ -116,41 +123,37 @@ const Component: React.FC = () => {
       </main>
 
       <div className={style.connect} ref={ref}>
-        {profile.wallet === null && location.pathname !== "/connect" && (
+        {connect.wallet === null && location.pathname !== "/connect" && (
           <Link to="/connect" state={{ openEndpoint: location.pathname }}>
             <Button isToncoin>Connect wallet</Button>
           </Link>
         )}
-        {profile.wallet === null && location.pathname === "/connect" && (
+        {connect.wallet === null && location.pathname === "/connect" && (
           <Button isToncoin onClick={buttonConnect}>
             Connect to Tonkeeper
           </Button>
         )}
-        {profile.wallet && (
+        {connect.wallet && (
           <div className={style.profile}>
             <span className={style.wallet}>
-              <Avatar
-                src={
-                  profile.avatar ??
-                  `https://source.boringavatars.com/marble/200/${toUserFriendlyAddress(
-                    profile.wallet.account.address
-                  )}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
-                }
-              />
+              {!profile.isLoading && (
+                <Avatar
+                  src={
+                    profile.avatar ??
+                    `https://source.boringavatars.com/marble/200/${connect.wallet}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
+                  }
+                />
+              )}
               <div className={style.information}>
-                {profile.dns !== null && (
+                {!profile.isLoading && profile.dns !== null && (
                   <div className={style.dns}>{profile.dns}.ton</div>
                 )}
-                <div>
-                  {maskifyAddress(
-                    toUserFriendlyAddress(profile.wallet.account.address)
-                  )}
-                </div>
+                <div>{maskifyAddress(connect.wallet)}</div>
               </div>
             </span>
             <Icon
               name="PowerOff"
-              onClick={() => dispatch("profile/disconnect")}
+              onClick={() => dispatch("connect/off")}
               style={{ cursor: "pointer" }}
             />
           </div>
