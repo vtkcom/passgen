@@ -1,5 +1,10 @@
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, memo } from "react";
+import {
+  useLocation,
+  useMatch,
+  useMatches,
+  useNavigate,
+} from "react-router-dom";
 import { useStoreon } from "storeon/react";
 import Qr from "../../../components/qr";
 import Title from "../../../components/title";
@@ -13,35 +18,28 @@ const Component: React.FC = () => {
     connect: { wallet, wallets, url },
     dispatch,
   } = useStoreon<State, Event>("profile", "connect");
-  const location = useLocation();
+  const [{ params }] = useMatches();
   const navigate = useNavigate();
+  const wal = useMemo(
+    () =>
+      wallets.data.find((a) => a.name.toLowerCase() === params.wallet) ?? null,
+    [wallets, params]
+  );
 
   useEffect(getWallets, []);
-  useEffect(preConnect, []);
   useEffect(afterConnect, [wallet]);
 
   function getWallets() {
     dispatch("connect/wallets");
   }
 
-  function preConnect() {
-    const isNotEmptyWallets = wallets.data.length;
-
-    if (wallets.data.length && !wallets.isLoading) {
-      console.log("conn");
-
-      dispatch("connect/on/see", { wallet: wallets.data[0] });
-    }
-  }
-
   function afterConnect() {
-    if (wallet)
-      navigate(location.state?.openEndpoint ?? "/", { replace: true });
+    if (wallet) navigate("/", { replace: true });
   }
 
   return (
     <Wrap style={{ gridTemplateRows: "max-content auto" }}>
-      <Title>Connect to Tonkeeper</Title>
+      <Title>Connect to {wal?.name}</Title>
       {url !== null && (
         <div className={style.connect}>
           <Qr url={url} />
@@ -58,4 +56,4 @@ const Component: React.FC = () => {
   );
 };
 
-export default Component;
+export default memo(Component);

@@ -20,7 +20,6 @@
   & .information {
     display: grid;
     gap: 0.5rem;
-    font-weight: 100;
     font-size: 1.2rem;
     & > div {
       display: grid;
@@ -30,7 +29,6 @@
       color: var(--tg-theme-hint-color);
       gap: 0.5rem;
       font-size: 0.9rem;
-      font-weight: 300;
     }
   }
 }

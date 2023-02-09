@@ -130,16 +130,12 @@ const Component: React.FC = () => {
       </main>
 
       <div className={style.connect + " " + style[WebApp.platform]} ref={ref}>
-        {connect.wallet === null && location.pathname !== "/connect" && (
-          <Link to="/connect" state={{ openEndpoint: location.pathname }}>
-            <Button isToncoin>Connect wallet</Button>
-          </Link>
-        )}
-        {connect.wallet === null && location.pathname === "/connect/tonkeeper" && (
-          <Button isToncoin onClick={buttonConnect}>
-            Connect to Tonkeeper
-          </Button>
-        )}
+        {connect.wallet === null &&
+          !new RegExp("connect").test(location.pathname) && (
+            <Link to="/connect" state={{ openEndpoint: location.pathname }}>
+              <Button isToncoin>Connect wallet</Button>
+            </Link>
+          )}
         {connect.wallet && (
           <div className={style.profile}>
             <span className={style.wallet}>

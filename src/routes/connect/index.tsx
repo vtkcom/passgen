@@ -34,7 +34,6 @@ const Component: React.FC = () => {
     connect: { wallet, wallets },
     dispatch,
   } = useStoreon<State, Event>("profile", "connect");
-  const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useMobileCheck();
 
@@ -46,8 +45,7 @@ const Component: React.FC = () => {
   }
 
   function afterConnect() {
-    if (wallet)
-      navigate(location.state?.openEndpoint ?? "/", { replace: true });
+    if (wallet) navigate("/", { replace: true });
   }
 
   return (
@@ -63,11 +61,13 @@ const Component: React.FC = () => {
           .map((a) => (
             <div
               key={a.name}
-              onClick={() =>
-                isMobile
-                  ? dispatch("connect/on/see", { wallet: a })
-                  : dispatch("connect/on/js", { wallet: a })
-              }
+              onClick={() => {
+                dispatch("connect/on/see", { wallet: a, isOpen: isMobile });
+                !isMobile &&
+                  navigate(`/connect/${a.name.toLowerCase()}`, {
+                    replace: true,
+                  });
+              }}
               className={style.wallet}
             >
               <Icon name={a.name as IconName} size={4} />

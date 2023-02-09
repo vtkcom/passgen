@@ -26,7 +26,7 @@ export interface State {
 }
 
 export interface Event {
-  "connect/on/see": { wallet: WalletInfo };
+  "connect/on/see": { wallet: WalletInfo; isOpen?: boolean };
   "connect/on/js": { wallet: WalletInfo };
 
   "connect/off": undefined;
@@ -63,8 +63,7 @@ export const connect: StoreonModule<State, Event> = (store) => {
       }
     },
     (err) => {
-      console.log("error", err.message);
-      console.log(err.name);
+      console.log(err);
     }
   );
 
@@ -78,7 +77,7 @@ export const connect: StoreonModule<State, Event> = (store) => {
     },
   }));
 
-  store.on("connect/on/see", async (state, { wallet }) => {
+  store.on("connect/on/see", async (state, { wallet, isOpen }) => {
     try {
       const url = connector.connect({
         universalLink: (wallet as WalletInfoRemote).universalLink,
@@ -86,7 +85,14 @@ export const connect: StoreonModule<State, Event> = (store) => {
       });
 
       if (url) {
-        WebApp.openLink(url);
+        if (isOpen) {
+          WebApp.openLink(url);
+        } else {
+          store.dispatch("#connect/data/set", {
+            wallet: state.connect.wallet,
+            url,
+          });
+        }
       }
     } catch (error) {
       console.log(error);
