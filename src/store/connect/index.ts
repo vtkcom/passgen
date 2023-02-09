@@ -3,6 +3,7 @@ import TonConnect, {
   type WalletInfo,
   toUserFriendlyAddress,
   WalletInfoRemote,
+  WalletInfoInjected,
 } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { StoreonModule } from "storeon";
@@ -28,6 +29,7 @@ export interface Event {
   "connect/url": { wallet: WalletInfo };
 
   "connect/off": undefined;
+  "connect/on": { wallet: WalletInfo };
 
   "#connect/data/set": { wallet: string | null; url: string | null };
 
@@ -76,24 +78,42 @@ export const connect: StoreonModule<State, Event> = (store) => {
     },
   }));
 
-  store.on("connect/url", (state, { wallet }) => {
-    const url = connector.connect({
-      universalLink: (wallet as WalletInfoRemote).universalLink,
-      bridgeUrl: (wallet as WalletInfoRemote).bridgeUrl,
-    });
+  store.on("connect/url", async (state, { wallet }) => {
+    try {
+      const url = connector.connect({
+        universalLink: (wallet as WalletInfoRemote).universalLink,
+        bridgeUrl: (wallet as WalletInfoRemote).bridgeUrl,
+      });
 
-    if (url) {
-      return {
-        connect: {
-          ...state.connect,
+      if (url) {
+        store.dispatch("#connect/data/set", {
+          wallet: state.connect.wallet,
           url,
-        },
-      };
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  store.on("connect/on", async (state, { wallet }) => {
+    try {
+      connector.connect({
+        jsBridgeKey: (wallet as WalletInfoInjected).jsBridgeKey,
+      });
+    } catch (error) {
+      console.log(error);
     }
   });
 
   store.on("connect/off", async () => {
-    await connector.disconnect();
+    localStorage.clear();
+
+    try {
+      await connector.disconnect();
+    } catch (error) {
+      console.log(error);
+    }
 
     store.dispatch("#connect/data/set", { wallet: null, url: null });
   });

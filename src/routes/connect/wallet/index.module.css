@@ -1,0 +1,14 @@
+.connect {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  justify-items: center;
+  background-color: color-mod(var(--tg-theme-bg-color) l(20%));
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.connect p {
+  margin: 0;
+  text-align: center;
+  color: var(--tg-theme-hint-color);
+}
