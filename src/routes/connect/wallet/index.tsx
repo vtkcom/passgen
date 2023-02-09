@@ -30,7 +30,7 @@ const Component: React.FC = () => {
     if (wallets.data.length && !wallets.isLoading) {
       console.log("conn");
 
-      dispatch("connect/url", { wallet: wallets.data[0] });
+      dispatch("connect/on/see", { wallet: wallets.data[0] });
     }
   }
 

@@ -26,10 +26,10 @@ export interface State {
 }
 
 export interface Event {
-  "connect/url": { wallet: WalletInfo };
+  "connect/on/see": { wallet: WalletInfo };
+  "connect/on/js": { wallet: WalletInfo };
 
   "connect/off": undefined;
-  "connect/on": { wallet: WalletInfo };
 
   "#connect/data/set": { wallet: string | null; url: string | null };
 
@@ -78,7 +78,7 @@ export const connect: StoreonModule<State, Event> = (store) => {
     },
   }));
 
-  store.on("connect/url", async (state, { wallet }) => {
+  store.on("connect/on/see", async (state, { wallet }) => {
     try {
       const url = connector.connect({
         universalLink: (wallet as WalletInfoRemote).universalLink,
@@ -86,17 +86,14 @@ export const connect: StoreonModule<State, Event> = (store) => {
       });
 
       if (url) {
-        store.dispatch("#connect/data/set", {
-          wallet: state.connect.wallet,
-          url,
-        });
+        WebApp.openLink(url);
       }
     } catch (error) {
       console.log(error);
     }
   });
 
-  store.on("connect/on", async (state, { wallet }) => {
+  store.on("connect/on/js", async (state, { wallet }) => {
     try {
       connector.connect({
         jsBridgeKey: (wallet as WalletInfoInjected).jsBridgeKey,
