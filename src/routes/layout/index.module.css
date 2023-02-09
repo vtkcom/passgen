@@ -1,15 +1,12 @@
 .connect {
-  /* grid-area: profile; */
   padding: 0.6rem 1.5rem;
   position: sticky;
   bottom: -1px;
   &.sticky {
     padding-bottom: calc(0.6rem + 1px);
-    /* background-color: hsla(0, 0%, 0%, 0.05); */
     background-color: color-mod(var(--tg-theme-bg-color) a(5%));
     backdrop-filter: saturate(110%) blur(0.6rem);
   }
-
   &.tdesktop {
     background-color: color-mod(var(--tg-theme-bg-color) a(50%));
   }
@@ -31,6 +28,7 @@
 .information {
   display: grid;
   grid-auto-rows: max-content;
+  align-content: center;
   & > div {
     overflow: hidden;
     white-space: nowrap;
@@ -48,13 +46,9 @@
 }
 .main {
   display: grid;
-  /* grid-area: main; */
-  /* align-items: start; */
-  /* grid-auto-rows: max-content; */
 }
 .footer {
   display: grid;
-  /* grid-area: footer; */
   grid-auto-flow: column;
   grid-auto-columns: max-content;
   justify-content: space-between;
@@ -68,7 +62,6 @@
   display: grid;
   grid-auto-flow: column;
   gap: 0.3rem;
-  /* grid-auto-columns: auto; */
   grid-auto-columns: max-content;
   justify-content: center;
   align-items: center;

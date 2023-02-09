@@ -1,5 +1,20 @@
+import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import { StoreonModule } from "storeon";
 import { DNSApi, NFTApi, Configuration } from "tonapi-sdk-js";
+
+interface Metadata {
+  name: string;
+  description: string;
+  attributes: Attribute[];
+  image: string;
+  marketplace?: "getgems.io";
+  external_url?: string;
+}
+
+interface Attribute {
+  trait_type: string;
+  value: string;
+}
 
 const dns = new DNSApi(
   new Configuration({
@@ -21,7 +36,7 @@ export interface State {
   profile: {
     isLoading: boolean;
     dns: string | null;
-    avatar: string | null;
+    avatar: { url: string; external_url: string } | null;
   };
 }
 
@@ -30,7 +45,7 @@ export interface Event {
   "#profile/req": undefined;
   "#profile/res": {
     dns: string | null;
-    avatar: string | null;
+    avatar: { url: string; external_url: string } | null;
   };
 }
 
@@ -55,19 +70,33 @@ export const profile: StoreonModule<State, Event> = (store) => {
 
   store.on("profile/update", async (state, { wallet }) => {
     store.dispatch("#profile/req");
+
     const [{ domains }, { nftItems }] = await Promise.all([
       dns.dnsBackResolve({
         account: wallet,
       }),
-      nft.getNftItemsByOwnerAddress({
-        account: wallet,
+      nft.searchNFTItems({
+        includeOnSale: true,
+        owner: wallet,
+        limit: 1000,
+        offset: 0,
       }),
     ]);
+
+    const avatar = nftItems.find(
+      (a) => (a.metadata as Metadata)?.marketplace === "getgems.io"
+    );
+
     store.dispatch("#profile/res", {
       dns: domains ? domains[0] ?? null : null,
-      avatar:
-        nftItems.filter((a) => a.metadata.attributes && a.metadata.image)[0]
-          ?.metadata.image ?? null,
+      avatar: avatar
+        ? {
+            external_url: `https://tonapi.io/account/${toUserFriendlyAddress(
+              avatar.address
+            )}`,
+            url: avatar.previews!.find((a) => a.resolution === "100x100")!.url,
+          }
+        : null,
     });
   });
 };

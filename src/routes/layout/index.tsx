@@ -116,6 +116,13 @@ const Component: React.FC = () => {
     if (connect.wallet) dispatch("profile/update", { wallet: connect.wallet });
   }
 
+  function openAvatar() {
+    if (profile.avatar) {
+      WebApp.HapticFeedback.impactOccurred("light");
+      WebApp.openLink(profile.avatar.external_url);
+    }
+  }
+
   return (
     <>
       <main className={style.main}>
@@ -128,7 +135,7 @@ const Component: React.FC = () => {
             <Button isToncoin>Connect wallet</Button>
           </Link>
         )}
-        {connect.wallet === null && location.pathname === "/connect" && (
+        {connect.wallet === null && location.pathname === "/connect/tonkeeper" && (
           <Button isToncoin onClick={buttonConnect}>
             Connect to Tonkeeper
           </Button>
@@ -138,8 +145,9 @@ const Component: React.FC = () => {
             <span className={style.wallet}>
               {!profile.isLoading && (
                 <Avatar
+                  onClick={openAvatar}
                   src={
-                    profile.avatar ??
+                    profile.avatar?.url ??
                     `https://source.boringavatars.com/marble/200/${connect.wallet}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
                   }
                 />

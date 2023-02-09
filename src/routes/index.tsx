@@ -3,10 +3,11 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import Layout from "./layout";
+import Home from "./home";
 import About from "./about";
 import Connect from "./connect";
-import Home from "./home";
-import Layout from "./layout";
+import Wallet from "./connect/wallet";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,6 +15,7 @@ export const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="connect" element={<Connect />} />
+      <Route path="connect/:wallet" element={<Wallet />} />
     </Route>
   ),
   {
