@@ -21,23 +21,23 @@ const qrCode = new QRCodeStyling({
   },
   dotsOptions: {
     type: "extra-rounded",
-    color: WebApp.themeParams.hint_color ?? "#777",
+    color: WebApp.themeParams.text_color ?? "#777",
     // gradient: {
     //   type: "linear",
     //   rotation: 45,
     //   colorStops: [
-    //     { offset: 0, color: WebApp.themeParams.hint_color },
+    //     { offset: 0, color: WebApp.themeParams.text_color },
     //     { offset: 1, color: "#666" },
     //   ],
     // },
   },
   cornersSquareOptions: {
     type: "extra-rounded",
-    color: WebApp.themeParams.hint_color ?? "#777",
+    color: WebApp.themeParams.text_color ?? "#777",
   },
   cornersDotOptions: {
     type: "dot",
-    color: WebApp.themeParams.hint_color ?? "#777",
+    color: WebApp.themeParams.text_color ?? "#777",
   },
 });
 
