@@ -8,7 +8,10 @@
     backdrop-filter: saturate(110%) blur(0.6rem);
   }
   &.tdesktop {
-    background-color: color-mod(var(--tg-theme-bg-color) a(50%));
+    background-color: var(--tg-theme-bg-color);
+  }
+  &:empty {
+    padding: 0;
   }
 }
 .connect a {

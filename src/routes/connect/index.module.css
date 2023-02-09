@@ -1,7 +1,6 @@
 .content {
   display: grid;
   gap: 1rem;
-  /* align-content: center; */
 }
 
 .wallet {
@@ -10,11 +9,12 @@
   grid-template-columns: max-content auto;
   align-items: center;
   gap: 2rem;
-  padding: 3rem 2rem;
+  padding: 0 2rem;
   border: 1px solid color-mod(var(--tg-theme-hint-color) a(10%));
   border-radius: 1rem;
-  box-shadow: 0px 3px 10px 0px color-mod(var(--tg-theme-hint-color) a(20%));
-  & svg {
+  box-shadow: 0px 3px 10px 0px color-mod(var(--tg-theme-hint-color) a(10%));
+  cursor: pointer;
+  & > svg {
     filter: grayscale(0.8);
   }
   & .information {
@@ -22,15 +22,14 @@
     gap: 0.5rem;
     font-weight: 100;
     font-size: 1.2rem;
-    line-height: 1;
-    & span {
+    & > div {
       display: grid;
       grid-auto-flow: column;
       grid-template-columns: max-content auto;
-      align-items: end;
+      align-items: start;
       color: var(--tg-theme-hint-color);
       gap: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 300;
     }
   }
