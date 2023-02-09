@@ -110,7 +110,9 @@ export const connect: StoreonModule<State, Event> = (store) => {
   });
 
   store.on("connect/off", async () => {
+    const openendpoint = localStorage.getItem("openendpoint");
     localStorage.clear();
+    localStorage.setItem("openendpoint", openendpoint ?? "/");
 
     try {
       await connector.disconnect();
