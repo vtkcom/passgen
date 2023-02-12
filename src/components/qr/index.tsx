@@ -48,17 +48,18 @@ interface Props {
 const Component: React.FC<Props> = ({ url }) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    qrCode.append(ref?.current ?? undefined);
-  }, []);
+  useEffect(init, [ref.current, url]);
 
-  useEffect(() => {
-    qrCode.update({
-      data: url,
-    });
-  }, []);
+  function init() {
+    if (ref.current && url) {
+      qrCode.append(ref?.current ?? undefined);
+      qrCode.update({
+        data: url,
+      });
+    }
+  }
 
-  return <div className={style.qr} ref={ref} />;
+  return <div ref={ref} className={style.qr} />;
 };
 
 Component.displayName = "QRCode";

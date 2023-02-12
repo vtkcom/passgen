@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useStoreon } from "storeon/react";
-import Wallet from "./wallet";
 import Title from "../../components/title";
 import Wrap from "../../components/wrap";
 import { Event, State } from "../../store";
@@ -9,8 +8,8 @@ import style from "./index.module.css";
 import { WalletInfoInjected, WalletInfoRemote } from "@tonconnect/sdk";
 import Icon from "../../components/icon";
 import { IconName } from "../../components/sprites";
-import Button from "../../components/button";
 import useMobileCheck from "../../hooks/mobilecheck";
+import { useTranslator } from "../../hooks/translator";
 
 interface Props {
   data: string[];
@@ -35,6 +34,7 @@ const Component: React.FC = () => {
     dispatch,
   } = useStoreon<State, Event>("profile", "connect");
   const navigate = useNavigate();
+  const t = useTranslator()
   const isMobile = useMobileCheck();
 
   useEffect(getWallets, []);
@@ -50,10 +50,9 @@ const Component: React.FC = () => {
 
   return (
     <Wrap style={{ gridTemplateRows: "max-content max-content auto" }}>
-      <Title>Connect to wallet</Title>
+      <Title>{t("connect.title")}</Title>
       <p>
-        Кошелёк — это простой и анонимный способ входа. Чтобы создать или купить
-        NFT, вам нужно подключить кошелёк или создать новый.
+        {t("connect.information")}
       </p>
       <div className={style.content}>
         {wallets.data
@@ -76,9 +75,9 @@ const Component: React.FC = () => {
                 <Information
                   data={
                     [
-                      "Нажмите на кнопку",
-                      !isMobile && "Сканируйте QR код камерой телефона",
-                      "В приложение кошелька потвердите подключение",
+                      t("connect.tap"),
+                      !isMobile && t("connect.scan"),
+                      t("connect.aproove.mobile"),
                     ].filter(Boolean) as string[]
                   }
                 />
@@ -98,8 +97,8 @@ const Component: React.FC = () => {
                 {a.name}
                 <Information
                   data={[
-                    "Нажмите на кнопку",
-                    "В открытом окне кошелька потвердите подключение",
+                    t("connect.tap"),
+                    t("connect.aproove.extension"),
                   ]}
                 />
               </div>
@@ -118,8 +117,8 @@ const Component: React.FC = () => {
                 {a.name}
                 <Information
                   data={[
-                    "Нажмите на кнопку",
-                    "В приложение кошелька потвердите подключение",
+                    t("connect.tap"),
+                    t("connect.aproove.mobile"),
                   ]}
                 />
               </div>
