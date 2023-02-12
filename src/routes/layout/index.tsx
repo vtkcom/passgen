@@ -1,4 +1,3 @@
-import { toUserFriendlyAddress } from "@tonconnect/sdk";
 import WebApp from "@twa-dev/sdk";
 import { useEffect, useRef } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -14,10 +13,12 @@ import lightIcon from "../../assets/icons/light.svg";
 import style from "./index.module.css";
 import { maskifyAddress } from "../../utils/maskifyaddress";
 import Avatar from "../../components/avatar";
+import { useTranslator } from "../../hooks/translator";
 
 const Component: React.FC = () => {
   const location = useLocation();
   const { twa } = useDetect();
+  const t = useTranslator();
   const { profile, connect, dispatch } = useStoreon<State, Event>(
     "profile",
     "connect"
@@ -92,10 +93,6 @@ const Component: React.FC = () => {
     }
   }
 
-  function buttonConnect() {
-    WebApp.openLink(connect.url!);
-  }
-
   function observeSticky() {
     if (ref.current) {
       const el = ref.current;
@@ -116,10 +113,10 @@ const Component: React.FC = () => {
     if (connect.wallet) dispatch("profile/update", { wallet: connect.wallet });
   }
 
-  function openAvatar() {
-    if (profile.avatar) {
+  function openLink(url: string) {
+    if (url) {
       WebApp.HapticFeedback.impactOccurred("light");
-      WebApp.openLink(profile.avatar.external_url);
+      WebApp.openLink(url);
     }
   }
 
@@ -133,22 +130,25 @@ const Component: React.FC = () => {
         {connect.wallet === null &&
           !new RegExp("connect").test(location.pathname) && (
             <Link to="/connect" state={{ openEndpoint: location.pathname }}>
-              <Button isToncoin>Connect wallet</Button>
+              <Button isToncoin>{t("button.connect")}</Button>
             </Link>
           )}
         {connect.wallet && (
           <div className={style.profile}>
             <span className={style.wallet}>
-              {!profile.isLoading && (
-                <Avatar
-                  onClick={openAvatar}
-                  src={
-                    profile.avatar?.url ??
-                    `https://source.boringavatars.com/marble/200/${connect.wallet}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
-                  }
-                />
-              )}
-              <div className={style.information}>
+              <Avatar
+                onClick={() => openLink(profile.avatar?.external_url ?? "")}
+                src={
+                  profile.avatar?.url ??
+                  `https://source.boringavatars.com/marble/200/${connect.wallet}`
+                }
+              />
+              <div
+                className={style.information}
+                onClick={() =>
+                  openLink(`https://tonapi.io/account/${connect.wallet}`)
+                }
+              >
                 {!profile.isLoading && profile.dns !== null && (
                   <div className={style.dns}>{profile.dns}.ton</div>
                 )}

@@ -1,0 +1,15 @@
+{
+  "connect": {
+    "title": "Connecting wallet",
+    "information": "A wallet is a simple and anonymous way to log in. \n To manage passwords, you need to connect a wallet or create a new one.",
+    "tap": "Tap on me",
+    "scan": "Scan the QR code with your phone's camera",
+    "aproove": {
+      "mobile": "In the wallet app, confirm the connection",
+      "extension": "In the open wallet window, confirm the connection"
+    }
+  },
+  "button": {
+    "connect": "Connect wallet"
+  }
+}
