@@ -39,7 +39,7 @@ const Component: React.FC = () => {
   useEffect(init, []);
   useEffect(getProfile, [connect.wallet]);
   useEffect(observeSticky, [ref.current]);
-  useEffect(toggleBackButton, [location]);
+  // useEffect(toggleBackButton, [location]);
   useEffect(initTheme, [systemTheme]);
 
   function initTheme(t = systemTheme) {
