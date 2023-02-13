@@ -39,7 +39,7 @@ const Component: React.FC = () => {
   useEffect(init, []);
   useEffect(getProfile, [connect.wallet]);
   useEffect(observeSticky, [ref.current]);
-  // useEffect(toggleBackButton, [location]);
+  useEffect(toggleBackButton, [location]);
   useEffect(initTheme, [systemTheme]);
 
   function initTheme(t = systemTheme) {
@@ -93,9 +93,9 @@ const Component: React.FC = () => {
   }
 
   function toggleBackButton() {
-    if (twa) {
+    WebApp.HapticFeedback.impactOccurred("light");
+    if (twa && false) {
       const openEndpoint = localStorage.getItem("openendpoint");
-      WebApp.HapticFeedback.impactOccurred("light");
 
       openEndpoint === location.pathname
         ? WebApp.BackButton.hide()
