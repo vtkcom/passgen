@@ -18,7 +18,7 @@ let theme: DefaultTheme = {
 
 theme = {
   ...theme,
-  shadow: `0px 3px 10px 0px ${opacify(-0.9, theme.hint_color)}`,
+  shadow: `0px 0px 10px 0px ${opacify(-0.9, theme.hint_color)}`,
   border: `1px solid ${opacify(-0.9, theme.hint_color)}`,
 };
 
