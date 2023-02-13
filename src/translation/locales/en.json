@@ -14,5 +14,9 @@
   },
   "footer": {
     "base": "Base on"
+  },
+  "profile": {
+    "accounts": "Accounts",
+    "settings": "Settings"
   }
 }

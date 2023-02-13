@@ -14,5 +14,9 @@
   },
   "footer": {
     "base": "Основан на"
+  },
+  "profile": {
+    "accounts": "Аккаунты",
+    "settings": "Настройки"
   }
 }

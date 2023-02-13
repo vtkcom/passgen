@@ -141,7 +141,7 @@ const Component: React.FC = () => {
         {connect.wallet === null &&
           !new RegExp("connect").test(location.pathname) && (
             <Link to="/connect" state={{ openEndpoint: location.pathname }}>
-              <Button isToncoin>{t("button.connect")}</Button>
+              <Button bgStyle="toncoin">{t("button.connect")}</Button>
             </Link>
           )}
         {connect.wallet && (
