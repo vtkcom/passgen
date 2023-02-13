@@ -67,7 +67,7 @@ export const Content = styled.div`
   bottom: -1px;
   &.sticky {
     padding-bottom: calc(0.6rem + 1px);
-    background-color: ${(p) => opacify(-0.95, p.theme.bg_color)};
+    background-color: ${(p) => opacify(-0.85, p.theme.bg_color)};
     backdrop-filter: saturate(110%) blur(0.6rem);
   }
   &.tdesktop {
