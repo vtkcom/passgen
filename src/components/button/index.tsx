@@ -1,4 +1,4 @@
-import style from "./index.module.css";
+import { Button } from "./@ui";
 
 interface Props {
   children?: React.ReactNode | React.ReactNode[];
@@ -8,12 +8,9 @@ interface Props {
 
 const Component: React.FC<Props> = ({ children, onClick, isToncoin }) => {
   return (
-    <div
-      onClick={onClick}
-      className={`${style.button}${isToncoin ? " " + style.toncoin : ""}`}
-    >
+    <Button onClick={onClick} className={isToncoin ? " toncoin" : ""}>
       {children}
-    </div>
+    </Button>
   );
 };
 

@@ -1,6 +1,5 @@
 import { memo } from "react";
 import type { IconName } from "../sprites";
-import style from "./index.module.css";
 
 interface Props extends React.HTMLProps<SVGSVGElement> {
   size?: number;
@@ -12,7 +11,6 @@ const Component: React.FC<Props> = ({ name, size = 2, ...props }) => {
     <svg
       {...props}
       style={{ width: `${size}rem`, height: `${size}rem`, ...props.style }}
-      className={style.icon}
     >
       <use href={`#svg-${name}`} />
     </svg>

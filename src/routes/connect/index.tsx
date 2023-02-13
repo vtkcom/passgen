@@ -4,12 +4,12 @@ import { useStoreon } from "storeon/react";
 import Title from "../../components/title";
 import Wrap from "../../components/wrap";
 import { Event, State } from "../../store";
-import style from "./index.module.css";
 import { WalletInfoInjected, WalletInfoRemote } from "@tonconnect/sdk";
 import Icon from "../../components/icon";
 import { IconName } from "../../components/sprites";
 import useMobileCheck from "../../hooks/mobilecheck";
 import { useTranslator } from "../../hooks/translator";
+import { Content, Wallet } from "./@ui";
 
 interface Props {
   data: string[];
@@ -34,7 +34,7 @@ const Component: React.FC = () => {
     dispatch,
   } = useStoreon<State, Event>("profile", "connect");
   const navigate = useNavigate();
-  const t = useTranslator()
+  const t = useTranslator();
   const isMobile = useMobileCheck();
 
   useEffect(getWallets, []);
@@ -51,14 +51,12 @@ const Component: React.FC = () => {
   return (
     <Wrap style={{ gridTemplateRows: "max-content max-content auto" }}>
       <Title>{t("connect.title")}</Title>
-      <p>
-        {t("connect.information")}
-      </p>
-      <div className={style.content}>
+      <p>{t("connect.information")}</p>
+      <Content>
         {wallets.data
           .filter((a) => (a as WalletInfoRemote).universalLink)
           .map((a) => (
-            <div
+            <Wallet
               key={a.name}
               onClick={() => {
                 dispatch("connect/on/see", { wallet: a, isOpen: isMobile });
@@ -67,10 +65,9 @@ const Component: React.FC = () => {
                     replace: true,
                   });
               }}
-              className={style.wallet}
             >
               <Icon name={a.name as IconName} size={4} />
-              <div className={style.information}>
+              <div className="information">
                 {a.name}
                 <Information
                   data={
@@ -82,49 +79,41 @@ const Component: React.FC = () => {
                   }
                 />
               </div>
-            </div>
+            </Wallet>
           ))}
         {wallets.data
           .filter((a) => (a as WalletInfoInjected).injected)
           .map((a) => (
-            <div
+            <Wallet
               key={a.name}
               onClick={() => dispatch("connect/on/js", { wallet: a })}
-              className={style.wallet}
             >
               <Icon name={a.name as IconName} size={4} />
-              <div className={style.information}>
+              <div className="information">
                 {a.name}
                 <Information
-                  data={[
-                    t("connect.tap"),
-                    t("connect.aproove.extension"),
-                  ]}
+                  data={[t("connect.tap"), t("connect.aproove.extension")]}
                 />
               </div>
-            </div>
+            </Wallet>
           ))}
         {wallets.data
           .filter((a) => (a as WalletInfoInjected).embedded)
           .map((a) => (
-            <div
+            <Wallet
               key={a.name}
               onClick={() => dispatch("connect/on/js", { wallet: a })}
-              className={style.wallet}
             >
               <Icon name={a.name as IconName} size={4} />
-              <div className={style.information}>
+              <div className="information">
                 {a.name}
                 <Information
-                  data={[
-                    t("connect.tap"),
-                    t("connect.aproove.mobile"),
-                  ]}
+                  data={[t("connect.tap"), t("connect.aproove.mobile")]}
                 />
               </div>
-            </div>
+            </Wallet>
           ))}
-      </div>
+      </Content>
     </Wrap>
   );
 };

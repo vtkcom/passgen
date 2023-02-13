@@ -10,10 +10,20 @@ import useSystemTheme from "../../hooks/systemtheme";
 import { Event, State } from "../../store";
 import darkIcon from "../../assets/icons/dark.svg";
 import lightIcon from "../../assets/icons/light.svg";
-import style from "./index.module.css";
 import { maskifyAddress } from "../../utils/maskifyaddress";
 import Avatar from "../../components/avatar";
 import { useTranslator } from "../../hooks/translator";
+import { ThemeProvider } from "styled-components";
+import { theme } from "../../theme";
+import {
+  Content,
+  Footer,
+  GlobalStyle,
+  Information,
+  Main,
+  Profile,
+  Wallet,
+} from "./@ui";
 
 const Component: React.FC = () => {
   const location = useLocation();
@@ -23,16 +33,16 @@ const Component: React.FC = () => {
     "profile",
     "connect"
   );
-  const theme = useSystemTheme();
+  const systemTheme = useSystemTheme();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(init, []);
   useEffect(getProfile, [connect.wallet]);
   useEffect(observeSticky, [ref.current]);
   useEffect(toggleBackButton, [location]);
-  useEffect(initTheme, [theme]);
+  useEffect(initTheme, [systemTheme]);
 
-  function initTheme(t = theme) {
+  function initTheme(t = systemTheme) {
     const icon =
       // @ts-ignore
       document.querySelector<"link">("link[rel='icon']") ??
@@ -98,8 +108,7 @@ const Component: React.FC = () => {
       const el = ref.current;
 
       const observer = new IntersectionObserver(
-        ([e]) =>
-          e.target.classList.toggle(style.sticky, e.intersectionRatio < 1),
+        ([e]) => e.target.classList.toggle("sticky", e.intersectionRatio < 1),
         { threshold: [1] }
       );
 
@@ -121,12 +130,14 @@ const Component: React.FC = () => {
   }
 
   return (
-    <>
-      <main className={style.main}>
-        <Outlet />
-      </main>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
 
-      <div className={style.connect + " " + style[WebApp.platform]} ref={ref}>
+      <Main>
+        <Outlet />
+      </Main>
+
+      <Content className={WebApp.platform} ref={ref}>
         {connect.wallet === null &&
           !new RegExp("connect").test(location.pathname) && (
             <Link to="/connect" state={{ openEndpoint: location.pathname }}>
@@ -134,8 +145,8 @@ const Component: React.FC = () => {
             </Link>
           )}
         {connect.wallet && (
-          <div className={style.profile}>
-            <span className={style.wallet}>
+          <Profile>
+            <Wallet>
               <Avatar
                 onClick={() => openLink(profile.avatar?.external_url ?? "")}
                 src={
@@ -143,28 +154,27 @@ const Component: React.FC = () => {
                   `https://source.boringavatars.com/marble/200/${connect.wallet}`
                 }
               />
-              <div
-                className={style.information}
+              <Information
                 onClick={() =>
                   openLink(`https://tonapi.io/account/${connect.wallet}`)
                 }
               >
                 {!profile.isLoading && profile.dns !== null && (
-                  <div className={style.dns}>{profile.dns}.ton</div>
+                  <div className="dns">{profile.dns}.ton</div>
                 )}
                 <div>{maskifyAddress(connect.wallet)}</div>
-              </div>
-            </span>
+              </Information>
+            </Wallet>
             <Icon
               name="PowerOff"
               onClick={() => dispatch("connect/off")}
               style={{ cursor: "pointer" }}
             />
-          </div>
+          </Profile>
         )}
-      </div>
+      </Content>
 
-      <footer className={style.footer}>
+      <Footer>
         <span>
           <Icon name="LogoTON" size={1.5} />
           TON
@@ -174,10 +184,10 @@ const Component: React.FC = () => {
           <div>{new Date().getFullYear()},</div>
           <div>notguiltyman.ton</div>
         </span>
-      </footer>
+      </Footer>
 
       <Sprites />
-    </>
+    </ThemeProvider>
   );
 };
 
