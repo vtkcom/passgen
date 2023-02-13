@@ -11,5 +11,8 @@
   },
   "button": {
     "connect": "Connect wallet"
+  },
+  "footer": {
+    "base": "Base on"
   }
 }
