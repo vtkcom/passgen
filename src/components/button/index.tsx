@@ -3,7 +3,7 @@ import { Button } from "./@ui";
 interface Props {
   children?: React.ReactNode | React.ReactNode[];
   onClick?: React.MouseEventHandler<HTMLDivElement>;
-  bgStyle?: "toncoin" | "settings" | "accounts";
+  bgStyle?: "toncoin" | "settings" | "accounts" | "generate";
   style?: "primary" | "ghost";
 }
 

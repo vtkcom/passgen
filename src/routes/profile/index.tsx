@@ -10,6 +10,7 @@ import Radio from "../../components/radio";
 import Title from "../../components/title";
 import Wrap from "../../components/wrap";
 import { useTranslator } from "../../hooks/translator";
+import { Content } from "./@ui";
 
 const Component: React.FC = () => {
   const location = useLocation();
@@ -17,8 +18,21 @@ const Component: React.FC = () => {
   const t = useTranslator();
   const data = useMemo(
     () => [
-      { url: "/profile/accounts", label: t("profile.accounts"), key: "accounts" },
-      { url: "/profile/settings", label: t("profile.settings"), key: "settings" },
+      {
+        url: "/profile/generate",
+        label: t("profile.generate"),
+        key: "generate",
+      },
+      {
+        url: "/profile/accounts",
+        label: t("profile.accounts"),
+        key: "accounts",
+      },
+      {
+        url: "/profile/settings",
+        label: t("profile.settings"),
+        key: "settings",
+      },
     ],
     []
   );
@@ -35,14 +49,13 @@ const Component: React.FC = () => {
   }
 
   return (
-    <Wrap>
-      {/* <Title>{title}</Title> */}
+    <Content>
       <Radio data={data} />
 
-      <Outlet />
-
-      {/* <Navigate to="/all/accounts" /> */}
-    </Wrap>
+      <Wrap>
+        <Outlet />
+      </Wrap>
+    </Content>
   );
 };
 

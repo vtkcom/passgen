@@ -17,6 +17,7 @@
   },
   "profile": {
     "accounts": "Accounts",
-    "settings": "Settings"
+    "settings": "Settings",
+    "generate": "Generate"
   }
 }
