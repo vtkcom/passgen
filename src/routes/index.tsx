@@ -19,6 +19,7 @@ export const router = createBrowserRouter(
       <Route path="profile" element={<Profile />}>
         <Route path="accounts" element={<Accounts />} />
         <Route path="settings" element={<Accounts />} />
+        <Route path="generate" element={<Accounts />} />
       </Route>
     </Route>
   ),

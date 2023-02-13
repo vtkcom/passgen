@@ -1,5 +1,5 @@
 const Component: React.FC = () => {
-  return null;
+  return <div>Test</div>;
 };
 
 export default Component;

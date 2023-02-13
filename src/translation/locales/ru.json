@@ -17,6 +17,7 @@
   },
   "profile": {
     "accounts": "Аккаунты",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "generate": "Генерация"
   }
 }
