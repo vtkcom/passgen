@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import tonconnect from "../../../assets/toncoin-bg.svg"
 
 export const Button = styled.div`
   background-color: ${(p) => p.theme.button_color};
@@ -21,7 +22,7 @@ export const Button = styled.div`
     text-overflow: ellipsis;
   }
   &.toncoin {
-    background-image: url(/toncoin-bg.svg);
+    background-image: url(${tonconnect});
     background-size: 6.5rem;
     background-position: center;
   }

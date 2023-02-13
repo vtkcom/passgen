@@ -176,6 +176,7 @@ const Component: React.FC = () => {
 
       <Footer>
         <span>
+          {t("footer.base")}
           <Icon name="LogoTON" size={1.5} />
           TON
         </span>
