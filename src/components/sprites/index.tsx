@@ -1,5 +1,5 @@
 import { memo } from "react";
-import style from "./index.module.css";
+import { Sprites } from "./@ui";
 
 export type IconName =
   | "PowerOff"
@@ -12,7 +12,7 @@ export type IconName =
 
 const Component: React.FC = () => {
   return (
-    <svg className={style.sprite} xmlns="http://www.w3.org/2000/svg">
+    <Sprites xmlns="http://www.w3.org/2000/svg">
       {/* Icons */}
       <symbol
         id="svg-PowerOff"
@@ -96,7 +96,7 @@ const Component: React.FC = () => {
           <path d="M 0,85 150,250 85,0 z" fill="#b7e7ff" stroke="#b7e7ff" />
         </g>
       </symbol>
-    </svg>
+    </Sprites>
   );
 };
 

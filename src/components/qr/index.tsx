@@ -1,7 +1,7 @@
 import { useEffect, useRef, memo } from "react";
 import QRCodeStyling from "qr-code-styling";
 import WebApp from "@twa-dev/sdk";
-import style from "./index.module.css";
+import { Qr } from "./@ui";
 
 const qrCode = new QRCodeStyling({
   width: 250,
@@ -59,7 +59,7 @@ const Component: React.FC<Props> = ({ url }) => {
     }
   }
 
-  return <div ref={ref} className={style.qr} />;
+  return <Qr ref={ref} />;
 };
 
 Component.displayName = "QRCode";

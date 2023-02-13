@@ -1,15 +1,11 @@
-import style from "./index.module.css";
+import { Avatar } from "./@ui";
 
 interface Props extends React.HTMLProps<HTMLImageElement> {}
 
 const Component: React.FC<Props> = ({ src, ...props }) => {
   return (
-    <img
-      src={src}
-      {...props}
-      loading="lazy"
-      className={style.avatar + " " + props.className}
-    />
+    // @ts-ignore
+    <Avatar src={src} {...props} loading="lazy" />
   );
 };
 

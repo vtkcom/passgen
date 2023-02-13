@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import { StoreContext } from "storeon/react";
 import { router } from "./routes";
 import { store } from "./store";
-import "./index.css";
+// import "./index.css";
 
 ReactDOM.createRoot(document.querySelector("app") as HTMLElement).render(
   <React.StrictMode>

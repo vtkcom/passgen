@@ -9,7 +9,7 @@ export const FALLBACK_LANGUAGE = {
 
 export enum LanguageTags {
   en = "en",
-  // ru = "ru",
+  ru = "ru",
 }
 
 function getI18n() {

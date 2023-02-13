@@ -1,15 +1,12 @@
-import style from "./index.module.css";
+import { Wrap } from "./@ui";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}
 
 const Component: React.FC<Props> = ({ children, ...props }) => {
-  return (
-    <div {...props} className={style.wrap}>
-      {children}
-    </div>
-  );
+  // @ts-ignore
+  return <Wrap {...props}>{children}</Wrap>;
 };
 
-Component.displayName = "Wrapper"
+Component.displayName = "Wrapper";
 
 export default Component;
