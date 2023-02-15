@@ -1,20 +1,11 @@
-import { useEffect, useMemo } from "react";
-import {
-  Link,
-  Navigate,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { useMemo } from "react";
+import { Outlet } from "react-router-dom";
+import { Content } from "./@ui";
 import Radio from "../../components/radio";
-import Title from "../../components/title";
 import Wrap from "../../components/wrap";
 import { useTranslator } from "../../hooks/translator";
-import { Content } from "./@ui";
 
 const Component: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
   const t = useTranslator();
   const data = useMemo(
     () => [
@@ -36,17 +27,6 @@ const Component: React.FC = () => {
     ],
     []
   );
-  const title = useMemo(
-    () => data.find((a) => a.url === location.pathname)?.label,
-    [location, data]
-  );
-
-  useEffect(redirect, [location, data]);
-
-  function redirect() {
-    if (data.length && location.pathname === "/profile")
-      navigate(data[0].url, { replace: true });
-  }
 
   return (
     <Content>

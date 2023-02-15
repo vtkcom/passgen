@@ -14,7 +14,7 @@ const Component: React.FC<Props> = ({ data }) => {
           {({ isActive }) => (
             <Button
               style={isActive ? "primary" : "ghost"}
-              bgStyle={a.key as "toncoin"}
+              bgStyle={isActive ? a.key as "toncoin" : undefined}
             >
               {a.label}
             </Button>

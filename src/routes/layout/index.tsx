@@ -1,20 +1,4 @@
-import WebApp from "@twa-dev/sdk";
 import { useEffect, useRef } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { useStoreon } from "storeon/react";
-import Button from "../../components/button";
-import Icon from "../../components/icon";
-import Sprites from "../../components/sprites";
-import { useDetect } from "../../hooks/detect";
-import useSystemTheme from "../../hooks/systemtheme";
-import { Event, State } from "../../store";
-import darkIcon from "../../assets/icons/dark.svg";
-import lightIcon from "../../assets/icons/light.svg";
-import { maskifyAddress } from "../../utils/maskifyaddress";
-import Avatar from "../../components/avatar";
-import { useTranslator } from "../../hooks/translator";
-import { ThemeProvider } from "styled-components";
-import { theme } from "../../theme";
 import {
   Content,
   Footer,
@@ -24,6 +8,22 @@ import {
   Profile,
   Wallet,
 } from "./@ui";
+import WebApp from "@twa-dev/sdk";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { useStoreon } from "storeon/react";
+import { ThemeProvider } from "styled-components";
+import Button from "../../components/button";
+import Icon from "../../components/icon";
+import Sprites from "../../components/sprites";
+import Avatar from "../../components/avatar";
+import { useDetect } from "../../hooks/detect";
+import { useSystemTheme } from "../../hooks/systemtheme";
+import { useTranslator } from "../../hooks/translator";
+import { maskifyAddress } from "../../utils/maskifyaddress";
+import { Event, State } from "../../store";
+import { theme } from "../../theme";
+import darkIcon from "../../assets/icons/dark.svg";
+import lightIcon from "../../assets/icons/light.svg";
 
 const Component: React.FC = () => {
   const location = useLocation();
@@ -42,7 +42,7 @@ const Component: React.FC = () => {
   useEffect(toggleBackButton, [location]);
   useEffect(initTheme, [systemTheme]);
 
-  function initTheme(t = systemTheme) {
+  function initTheme() {
     const icon =
       // @ts-ignore
       document.querySelector<"link">("link[rel='icon']") ??
@@ -52,18 +52,18 @@ const Component: React.FC = () => {
 
     icon.rel = "icon";
     icon.type = "image/svg+xml";
-    icon.href = t === "dark" ? darkIcon : lightIcon;
+    icon.href = systemTheme === "dark" ? darkIcon : lightIcon;
 
     colorScheme.name = "color-scheme";
-    colorScheme.content = t;
+    colorScheme.content = systemTheme;
 
     themeColor.name = "theme-color";
     themeColor.content =
-      t === "dark"
+      systemTheme === "dark"
         ? WebApp.themeParams.bg_color ?? "#000"
         : WebApp.themeParams.bg_color ?? "#fff";
 
-    document.title = t === "dark" ? "👊🤘🤙" : "👊🏿🤘🏿🤙🏿";
+    document.title = systemTheme === "dark" ? "👊🤘🤙" : "👊🏿🤘🏿🤙🏿";
 
     document.head.appendChild(icon);
     document.head.appendChild(colorScheme);
@@ -162,7 +162,7 @@ const Component: React.FC = () => {
                 {!profile.isLoading && profile.dns !== null && (
                   <div className="dns">{profile.dns}.ton</div>
                 )}
-                <div>{maskifyAddress(connect.wallet)}</div>
+                <div>{maskifyAddress(connect.wallet, 15, 6)}</div>
               </Information>
             </Wallet>
             <Icon
