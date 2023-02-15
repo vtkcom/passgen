@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStoreon } from "storeon/react";
+import { WalletInfoInjected, WalletInfoRemote } from "@tonconnect/sdk";
+import { Content, Wallet } from "./@ui";
 import Title from "../../components/title";
 import Wrap from "../../components/wrap";
-import { Event, State } from "../../store";
-import { WalletInfoInjected, WalletInfoRemote } from "@tonconnect/sdk";
 import Icon from "../../components/icon";
 import { IconName } from "../../components/sprites";
-import useMobileCheck from "../../hooks/mobilecheck";
 import { useTranslator } from "../../hooks/translator";
-import { Content, Wallet } from "./@ui";
+import { useDetect } from "../../hooks/detect";
+import { Event, State } from "../../store";
 
 interface Props {
   data: string[];
@@ -35,7 +35,7 @@ const Component: React.FC = () => {
   } = useStoreon<State, Event>("profile", "connect");
   const navigate = useNavigate();
   const t = useTranslator();
-  const isMobile = useMobileCheck();
+  const { mobile } = useDetect();
 
   useEffect(getWallets, []);
   useEffect(afterConnect, [wallet]);
@@ -59,8 +59,8 @@ const Component: React.FC = () => {
             <Wallet
               key={a.name}
               onClick={() => {
-                dispatch("connect/on/see", { wallet: a, isOpen: isMobile });
-                !isMobile &&
+                dispatch("connect/on/see", { wallet: a, isOpen: mobile });
+                !mobile &&
                   navigate(`/connect/${a.name.toLowerCase()}`, {
                     replace: true,
                   });
@@ -73,7 +73,7 @@ const Component: React.FC = () => {
                   data={
                     [
                       t("connect.tap"),
-                      !isMobile && t("connect.scan"),
+                      !mobile && t("connect.scan"),
                       t("connect.aproove.mobile"),
                     ].filter(Boolean) as string[]
                   }

@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 
-const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const prefersColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-function useSystemTheme() {
-  const [theme, setTheme] = useState<"light" | "dark">(darkModeMediaQuery.matches ? "dark" : "light");
+export function useSystemTheme() {
+  const [theme, setTheme] = useState<"light" | "dark">(
+    prefersColorScheme.matches ? "dark" : "light"
+  );
 
   useEffect(init, []);
 
   function init() {
-    darkModeMediaQuery.addEventListener("change", onChange);
+    prefersColorScheme.addEventListener("change", onChange);
 
-    return () => darkModeMediaQuery.removeEventListener("change", onChange);
+    return () => prefersColorScheme.removeEventListener("change", onChange);
   }
 
   function onChange(e: MediaQueryListEvent) {
@@ -21,5 +23,3 @@ function useSystemTheme() {
 
   return theme;
 }
-
-export default useSystemTheme;

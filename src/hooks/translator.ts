@@ -1,5 +1,5 @@
-import { Scope, TranslateOptions } from "i18n-js";
 import { useCallback, useMemo } from "react";
+import { Scope, TranslateOptions } from "i18n-js";
 import { i18n } from "../translation/i18n";
 
 export function useTranslator() {
