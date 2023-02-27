@@ -102,6 +102,7 @@ const Component: React.FC = () => {
         <path
           d="M16 13l-6-6-6 6"
           stroke="#fff"
+          fill="none"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
