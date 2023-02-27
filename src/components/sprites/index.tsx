@@ -8,7 +8,8 @@ export type IconName =
   | "AlertCircle"
   | "MyTonWallet"
   | "Tonkeeper"
-  | "OpenMask";
+  | "OpenMask"
+  | "TonSafe";
 
 const Component: React.FC = () => {
   return (
@@ -95,6 +96,16 @@ const Component: React.FC = () => {
           <path d="M 0,215 150,250 0,85 z" fill="#ade2ff" stroke="#ade2ff" />
           <path d="M 0,85 150,250 85,0 z" fill="#b7e7ff" stroke="#b7e7ff" />
         </g>
+      </symbol>
+      <symbol id="svg-TonSafe" viewBox="0 0 20 20">
+        <circle cx={10} cy={10} r={10} fill="#01406B" />
+        <path
+          d="M16 13l-6-6-6 6"
+          stroke="#fff"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </symbol>
     </Sprites>
   );

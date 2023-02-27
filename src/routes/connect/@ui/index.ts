@@ -11,7 +11,7 @@ export const Wallet = styled.div`
   grid-template-columns: max-content auto;
   align-items: center;
   gap: 2rem;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   border: ${(p) => p.theme.border};
   border-radius: ${(p) => p.theme.border_radius};
   box-shadow: ${(p) => p.theme.shadow};
